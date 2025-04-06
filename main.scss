@@ -1,0 +1,544 @@
+/*   
+
+
+*/
+
+@import 'publico-mono';
+
+$black: rgb(17,17,21);
+$blue: rgba(0,0,128,.3);
+$lightred: rgb(248,57,69);
+$darkred: rgb(106,1,10);
+$lightblue: rgba(180,220,240,.7);
+$darkblue: rgba(180,220,240,1);
+$orange: rgb(255,158,42);
+
+@mixin kerning() {
+  -moz-font-feature-settings: "liga", "kern";
+  -moz-font-feature-settings:"liga=1, kern=1";
+  -ms-font-feature-settings:"liga", "kern";
+  -o-font-feature-settings:"liga", "kern";
+  -webkit-font-feature-settings:"liga", "kern";
+  font-feature-settings: "liga", "kern";
+}
+
+@mixin noselect() {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.top-banner {
+  display: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;  
+}
+
+#full-header {
+  transition: top 1s !important;
+  top: 0;
+  &.hidden {
+    @media only screen and (max-width: 1060px) {
+      top: -91px !important;
+    }
+  }
+}
+
+.game-container {
+  font: 10px sans-serif;
+  margin: 0;
+  padding: 0;
+  top: 90px;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow: hidden;
+  background: $black;
+  color: white;
+  @include PublicoTextMono-Roman-Web();
+  @include kerning();
+
+  @media only screen and (max-width: 1060px) {
+    top: 0;
+    height: 100%;
+  }
+}
+
+.terminal .game-container {
+  top: 0;
+  height: 100%;  
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $black;
+}
+
+.opener {
+  z-index: 2;
+  font-size: 12px;
+  text-align: center;
+
+  @media only screen and (max-width: 1060px) {
+    padding-top: 90px;
+  }
+
+  h1 {
+    @include PublicoTextMono-Bold-Web();
+    margin: .5em;
+    font-size: 3em;
+  }
+
+  h3 {
+    height: 1em;
+    margin-bottom: 1em;
+  }
+
+  button {
+    font-size: 2em;
+    margin: .5em;
+    padding: .5em;
+  }
+
+  .instructions {
+    max-width: 220px;
+    color: black;
+    background: $lightblue;
+    box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.32);
+    padding: 1em;
+    text-align: left;
+    margin: 1em auto;
+
+    h2 {
+      font-size: 1em;
+      margin: 0;
+      @include PublicoTextMono-Bold-Web();
+    }
+
+    ul {
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+    li {
+      list-style-type: none;
+    }
+  }
+
+  .toph-byline {
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    a { color: white; text-decoration: underline; }
+  }
+
+  .toph-about {
+    position: absolute;
+    left: 50%;
+    bottom: 1em;
+    transform: translate(-50%,0);
+    a { color: white; text-decoration: underline; }
+  }
+
+  .toph-dateline {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}
+
+.levels > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $black;  
+
+  div.alerts {
+    position: absolute;
+    left: 10px;
+    bottom: 20px;
+
+    div.alert {
+      max-width: 200px;
+      color: black;
+      background: $lightblue;
+      box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.32);
+      font-size: 12px;
+      padding: .5em;
+      margin-bottom: 10px;
+
+      span.tweet {
+        color: blue;
+      }
+
+      &.tweetable:hover {
+        background: $darkblue;
+        cursor: pointer;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        background: rgba(255,255,255,.5);
+        border: 1px solid $lightblue;
+      }
+    }
+  }
+
+  div.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+
+    background: -webkit-linear-gradient(to bottom, $lightred, $darkred);
+    background: -moz-linear-gradient(to bottom, $lightred, $darkred);
+    background: linear-gradient(to bottom, $lightred, $darkred);
+
+    font-size: 12px;
+    color: white; 
+
+    div {
+      display: inline-block;
+      background: $orange;
+      margin: 6px 0 6px 6px;
+      color: black;
+      padding: .5em;
+    }
+
+    div.cash {
+      position: relative;
+
+      .net {
+        color: black;
+        &:not(.liquid) {
+          color: rgba(0,0,0,.5);
+        }
+      }
+
+      .change {
+        position: absolute;
+        top: 3.5em;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background: none;
+      }
+    }
+
+    
+
+    div.time {
+      float: right;
+      margin-right: 6px;
+    }
+
+    button.next {
+      float: right;
+      height: 40px;
+      font-size: 12px;
+      padding: .5em 1em;
+      border-left: solid 1px $darkred;
+    }
+
+  }
+}
+
+.ad-item {
+  p {
+    margin-top: 60px;
+    text-align: center;
+  }
+  .ad {
+    margin: 20px auto;
+    text-align: center;
+  }
+}
+
+.chart-item {
+
+  * { box-sizing: border-box; }
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $black;
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #fff;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    stroke: none; /* Example of adding meaningful styles */
+  }
+
+  .axis text {
+    fill: #fff;
+  }
+
+  .gridlines {
+    line {
+      stroke: rgba(255,255,255,.2);
+      stroke-dasharray: 2;
+    }
+    path {
+      display: none;
+    }
+  }
+
+  .line {
+    fill: none;
+    stroke: white;
+    stroke-width: 1.5px;
+  }
+
+  .area {
+    fill: $blue;
+    stroke: none;
+  }
+  
+  path.transaction {
+    fill: none;
+    stroke-width: 2px;
+    &.outstanding {
+      stroke-width: 4px;
+    }
+    &.past {
+      stroke-width: .5px;
+    }
+    &.competitor {
+      stroke-width: 1px;
+      stroke-dasharray: 3, 1;
+      opacity: .8;
+    }
+    &.ghost {
+      stroke-width: .5px;
+      stroke-dasharray: none;
+      opacity: .3;
+    }
+  }
+
+  text.share {
+    text-anchor: middle;
+    fill: white;
+  }
+
+  text.cash {
+    text-anchor: middle;
+    &.buy {
+      fill: #f00;
+    }
+    &.sell {
+      fill: #0f0;
+    }
+  }
+
+  text.dollabill {
+    fill: white;
+  }
+
+  circle.cursor-indicator {
+    fill: rgba(255,255,255,.5);
+  }
+
+  &.playing {
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+    @include noselect();
+
+    &.holding {
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+      cursor: grabbing;
+    }
+  }
+
+  &.level-over {
+    .time {
+      display: none;
+    }
+    svg .line.share {
+      stroke: #ccc;
+      stroke-width: .5px;
+      transition: stroke 2s, stroke-width 2s;
+    }
+  }
+
+}
+
+.game-over {
+  font-size: 2em;
+  padding: 4em;
+  text-align: center;
+
+  h2 {
+    font-size: 4em;
+    margin-top: 1em;
+  }
+  p {
+    max-width: 16em;
+    margin: 1em auto;
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}
+
+button {
+  background: -webkit-linear-gradient(to bottom, $lightred, $darkred);
+  background: -moz-linear-gradient(to bottom, $lightred, $darkred);
+  background: linear-gradient(to bottom, $lightred, $darkred);
+
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  @include noselect();
+  @include PublicoTextMono-Roman-Web();
+
+  &:hover, &.hover {
+    background: -webkit-linear-gradient(to top, $lightred, $darkred);
+    background: -moz-linear-gradient(to top, $lightred, $darkred);
+    background: linear-gradient(to top, $lightred, $darkred);
+  }
+}
+
+@media (max-width: 400px) {
+  #full-header.sticky-header {
+    height: 70px;
+    #header-logo {
+      height: 30px;
+    }
+    #header-sharing {
+      top: 22px;
+      width: 80px;
+      .header-icon {
+        width: 26px;
+        float: none;
+      }
+    }
+  }
+}
+
+/* Brute force. Wasn't working on iOS web views e.g. Chrome. */
+body.playing * {
+  @include noselect();
+}
+
+.center-middle {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+}
+
+.histogram {
+  rect, text {
+    fill: white;
+  }
+  .bar rect {
+    opacity: .5;
+  }
+  .annotation {
+    line {
+      stroke-width: 1;
+      stroke: white;
+    }
+    text {
+      text-anchor: middle;
+    }
+  }
+}
+
+g.histogram.trades {
+  .x.axis {
+    display: none;
+  }
+  text {
+    display: none;
+  }
+}
+
+.presentation {
+
+  // #full-header {
+  //   display: none !important;
+  // }
+
+  // .opener {
+  //   h1, h3, .toph-byline, .toph-dateline, .instructions {
+  //     display: none !important;
+  //   }
+  // }
+
+  .chart-item.playing {
+    cursor: not-allowed;
+  }
+
+  .opener .instructions {
+    display: none !important;
+  }
+
+  // .game-container {
+  //   top: 0 !important;
+  //   height: 100% !important;
+  // }
+
+  div.alerts {
+    display: none !important;
+  }
+
+  // .chart-item .gridlines {
+  //   display: none !important;
+  // }
+
+  div.toolbar div.cash, div.toolbar button.next {
+    display: none !important;
+  }
+
+  // div.toolbar {
+  //   display: none !important;
+  // }
+
+  // .histogram.returns {
+  //   display: none !important;
+  // }
+}

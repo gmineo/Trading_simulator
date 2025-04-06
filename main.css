@@ -1,0 +1,433 @@
+
+
+@font-face {
+  font-family: 'Publico Text Mono Web Bold';
+  src: url("../fonts/PublicoTextMono-BoldItalic-Web.eot");
+  src: url("../fonts/PublicoTextMono-BoldItalic-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-BoldItalic-Web.woff") format("woff"), url("../fonts/PublicoTextMono-BoldItalic-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-BoldItalic-Web.svg#Publico Text Mono Web Bold") format("svg");
+  font-weight: 600;
+  font-style: italic;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Bold';
+  src: url("../fonts/PublicoTextMono-Bold-Web.eot");
+  src: url("../fonts/PublicoTextMono-Bold-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-Bold-Web.woff") format("woff"), url("../fonts/PublicoTextMono-Bold-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-Bold-Web.svg#Publico Text Mono Web Bold") format("svg");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Sembd';
+  src: url("../fonts/PublicoTextMono-SemiboldItalic-Web.eot");
+  src: url("../fonts/PublicoTextMono-SemiboldItalic-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.woff") format("woff"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.svg#Publico Text Mono Web Sembd") format("svg");
+  font-weight: 600;
+  font-style: italic;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Sembd';
+  src: url("../fonts/PublicoTextMono-Semibold-Web.eot");
+  src: url("../fonts/PublicoTextMono-Semibold-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-Semibold-Web.woff") format("woff"), url("../fonts/PublicoTextMono-Semibold-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-Semibold-Web.svg#Publico Text Mono Web Sembd") format("svg");
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Rom 2';
+  src: url("../fonts/PublicoTextMono-ItalicNo2-Web.eot");
+  src: url("../fonts/PublicoTextMono-ItalicNo2-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-ItalicNo2-Web.woff") format("woff"), url("../fonts/PublicoTextMono-ItalicNo2-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-ItalicNo2-Web.svg#Publico Text Mono Web Rom 2") format("svg");
+  font-weight: 500;
+  font-style: italic;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Rom 2';
+  src: url("../fonts/PublicoTextMono-RomanNo2-Web.eot");
+  src: url("../fonts/PublicoTextMono-RomanNo2-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-RomanNo2-Web.woff") format("woff"), url("../fonts/PublicoTextMono-RomanNo2-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-RomanNo2-Web.svg#Publico Text Mono Web Rom 2") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Roman';
+  src: url("../fonts/PublicoTextMono-Italic-Web.eot");
+  src: url("../fonts/PublicoTextMono-Italic-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-Italic-Web.woff") format("woff"), url("../fonts/PublicoTextMono-Italic-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-Italic-Web.svg#Publico Text Mono Web Roman") format("svg");
+  font-weight: 400;
+  font-style: italic;
+  font-stretch: normal; }
+@font-face {
+  font-family: 'Publico Text Mono Web Roman';
+  src: url("../fonts/PublicoTextMono-Roman-Web.eot");
+  src: url("../fonts/PublicoTextMono-Roman-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-Roman-Web.woff") format("woff"), url("../fonts/PublicoTextMono-Roman-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-Roman-Web.svg#Publico Text Mono Web Roman") format("svg");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal; }
+.top-banner {
+  display: none; }
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; }
+
+#full-header {
+  transition: top 1s !important;
+  top: 0; }
+  @media only screen and (max-width: 1060px) {
+    #full-header.hidden {
+      top: -91px !important; } }
+
+.game-container {
+  font: 10px sans-serif;
+  margin: 0;
+  padding: 0;
+  top: 90px;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow: hidden;
+  background: #111115;
+  color: white;
+  font-family: 'Publico Text Mono Web Roman';
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  -moz-font-feature-settings: "liga", "kern";
+  -moz-font-feature-settings: "liga=1, kern=1";
+  -ms-font-feature-settings: "liga", "kern";
+  -o-font-feature-settings: "liga", "kern";
+  -webkit-font-feature-settings: "liga", "kern";
+  font-feature-settings: "liga", "kern"; }
+  @media only screen and (max-width: 1060px) {
+    .game-container {
+      top: 0;
+      height: 100%; } }
+
+.terminal .game-container {
+  top: 0;
+  height: 100%; }
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111115; }
+
+.opener {
+  z-index: 2;
+  font-size: 12px;
+  text-align: center; }
+  @media only screen and (max-width: 1060px) {
+    .opener {
+      padding-top: 90px; } }
+  .opener h1 {
+    font-family: 'Publico Text Mono Web Bold';
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    margin: .5em;
+    font-size: 6em; }
+  .opener h3 {
+    height: 1em;
+    margin-bottom: 1em; }
+  .opener button {
+    font-size: 2em;
+    margin: .5em;
+    padding: .5em; }
+  .opener .instructions {
+    max-width: 500px;
+    color: black;
+    background: rgba(243, 246, 248, 0.879);
+    box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.32);
+    padding: 1em;
+    text-align: left;
+    margin: 1em auto; }
+    .opener .instructions h2 {
+      font-size: 1.5em;
+      margin: 0;
+      font-family: 'Publico Text Mono Web Bold';
+      font-weight: 700;
+      font-style: normal;
+      font-stretch: normal; }
+    .opener .instructions ul {
+      padding-left: 0;
+      margin-bottom: 0; }
+    .opener .instructions li {
+      font-size: 1.5em;
+      list-style-type: none; }
+  .opener .toph-byline {
+    position: absolute;
+    left: 1em;
+    bottom: 1em; }
+    .opener .toph-byline a {
+      color: white;
+      text-decoration: underline; }
+  .opener .toph-about {
+    position: absolute;
+    left: 50%;
+    bottom: 1em;
+    transform: translate(-50%, 0); }
+    .opener .toph-about a {
+      color: white;
+      text-decoration: underline; }
+  .opener .toph-dateline {
+    position: absolute;
+    right: 1em;
+    bottom: 1em; }
+  .opener canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; }
+
+.levels > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111115; }
+  .levels > div div.alerts {
+    position: absolute;
+    left: 10px;
+    bottom: 20px; }
+    .levels > div div.alerts div.alert {
+      max-width: 2000px;
+      color: black;
+      background: rgba(180, 220, 240, 0.7);
+      box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.32);
+      font-size: 30px;
+      padding: .5em;
+      margin-bottom: 10px; }
+      .levels > div div.alerts div.alert span.tweet {
+        color: blue; }
+      .levels > div div.alerts div.alert.tweetable:hover {
+        background: #b4dcf0;
+        cursor: pointer; }
+      .levels > div div.alerts div.alert input {
+        display: block;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(180, 220, 240, 0.7); }
+  .levels > div div.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background: -webkit-linear-gradient(to bottom, #f83945, #6a010a);
+    background: -moz-linear-gradient(to bottom, #f83945, #6a010a);
+    background: linear-gradient(to bottom, #f83945, #6a010a);
+    font-size: 20px;
+    color: white; }
+    .levels > div div.toolbar div {
+      display: inline-block;
+      background: #ff9e2a;
+      margin: 6px 0 6px 6px;
+      color: black;
+      padding: .5em; }
+    .levels > div div.toolbar div.cash {
+      position: relative; }
+      .levels > div div.toolbar div.cash .net {
+        color: black; }
+        .levels > div div.toolbar div.cash .net:not(.liquid) {
+          color: rgba(0, 0, 0, 0.5); }
+      .levels > div div.toolbar div.cash .change {
+        position: absolute;
+        top: 3.5em;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background: none; }
+    .levels > div div.toolbar div.time {
+      float: right;
+      margin-right: 6px; }
+    .levels > div div.toolbar button.next {
+      float: right;
+      height: 35px;
+      font-size: 20px;
+      padding: .5em 1em;
+      border-left: solid 1px #6a010a; }
+
+.ad-item p {
+  margin-top: 60px;
+  text-align: center; }
+.ad-item .ad {
+  margin: 20px auto;
+  text-align: center; }
+
+.chart-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111115; }
+  .chart-item * {
+    box-sizing: border-box; }
+  .chart-item .axis path,
+  .chart-item .axis line {
+    fill: none;
+    stroke: #fff;
+    shape-rendering: crispEdges; }
+  /* Removed empty ruleset for .chart-item .x.axis path */
+  .chart-item .axis text {
+    font: 15px sans-serif;  /* Cambiato a 14px */
+    fill: #ffffff; }
+  .chart-item .gridlines line {
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-dasharray: 2; }
+  .chart-item .gridlines path {
+    display: none; }
+  .chart-item .line {
+    fill: none;
+    stroke: white;
+    stroke-width: 1.5px; }
+  .chart-item .area {
+    fill: rgba(0, 0, 128, 0.3);
+    stroke: none; }
+  .chart-item path.transaction {
+    fill: none;
+    stroke-width: 2px; }
+    .chart-item path.transaction.outstanding {
+      stroke-width: 4px; }
+    .chart-item path.transaction.past {
+      stroke-width: .5px; }
+    .chart-item path.transaction.competitor {
+      stroke-width: 1px;
+      stroke-dasharray: 3, 1;
+      opacity: .8; }
+    .chart-item path.transaction.ghost {
+      stroke-width: .5px;
+      stroke-dasharray: none;
+      opacity: .3; }
+  .chart-item text.share {
+    text-anchor: middle;
+    fill: white; }
+  .chart-item text.cash {
+    text-anchor: middle; }
+    .chart-item text.cash.buy {
+      fill: #f00; }
+    .chart-item text.cash.sell {
+      fill: #0f0; }
+  .chart-item text.dollabill {
+    fill: white; }
+  .chart-item circle.cursor-indicator {
+    fill: rgba(247, 248, 225, 0.85); }
+  .chart-item.playing {
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    .chart-item.playing.holding {
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+      cursor: grabbing; }
+  .chart-item.level-over .time {
+    display: none; }
+  .chart-item.level-over svg .line.share {
+    stroke: #ccc;
+    stroke-width: .5px;
+    transition: stroke 2s, stroke-width 2s; }
+
+.game-over {
+  font-size: 2em;
+  padding: 4em;
+  text-align: center; }
+  .game-over h2 {
+    font-size: 4em;
+    margin-top: 1em; }
+  .game-over p {
+    max-width: 16em;
+    margin: 1em auto; }
+  .game-over canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; }
+
+button {
+  background: -webkit-linear-gradient(to bottom, #f83945, #6a010a);
+  background: -moz-linear-gradient(to bottom, #f83945, #6a010a);
+  background: linear-gradient(to bottom, #f83945, #6a010a);
+  color: white;
+  border: none;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Publico Text Mono Web Roman';
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal; }
+  button:hover, button.hover {
+    background: -webkit-linear-gradient(to top, #f83945, #6a010a);
+    background: -moz-linear-gradient(to top, #f83945, #6a010a);
+    background: linear-gradient(to top, #f83945, #6a010a); }
+
+@media (max-width: 400px) {
+  #full-header.sticky-header {
+    height: 70px; }
+    #full-header.sticky-header #header-logo {
+      height: 30px; }
+    #full-header.sticky-header #header-sharing {
+      top: 22px;
+      width: 80px; }
+      #full-header.sticky-header #header-sharing .header-icon {
+        width: 26px;
+        float: none; } }
+/* Brute force. Wasn't working on iOS web views e.g. Chrome. */
+body.playing * {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.center-middle {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%); }
+
+.histogram rect, .histogram text {
+  fill: white; }
+.histogram .bar rect {
+  opacity: .5; }
+.histogram .annotation line {
+  stroke-width: 1;
+  stroke: white; }
+.histogram .annotation text {
+  text-anchor: middle; }
+
+g.histogram.trades .x.axis {
+  display: none; }
+g.histogram.trades text {
+  display: none; }
+
+.presentation .chart-item.playing {
+  cursor: not-allowed; }
+.presentation .opener .instructions {
+  display: none !important; }
+.presentation div.alerts {
+  display: none !important; }
+.presentation div.toolbar div.cash, .presentation div.toolbar button.next {
+  display: none !important; }
+
+/*# sourceMappingURL=main.css.map */
