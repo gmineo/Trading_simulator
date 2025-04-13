@@ -47,8 +47,8 @@ body {
   transition: top 1s !important;
   top: 0;
   &.hidden {
-    @media only screen and (max-width: 1060px) {
-      top: -91px !important;
+    @media only screen and (max-width: 160px) {
+      top: -1px !important;
     }
   }
 }
@@ -441,15 +441,15 @@ button {
 
 @media (max-width: 400px) {
   #full-header.sticky-header {
-    height: 70px;
+    height: 3px;
     #header-logo {
-      height: 30px;
+      height: 3px;
     }
     #header-sharing {
-      top: 22px;
-      width: 80px;
+      top: 2px;
+      width: 8px;
       .header-icon {
-        width: 26px;
+        width: 2px;
         float: none;
       }
     }

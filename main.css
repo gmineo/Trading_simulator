@@ -83,7 +83,7 @@ body {
   height: calc(100% - 90px);
   overflow: hidden;
   background: #111115;
-  color: white;
+  color: rgb(255, 255,255 );
   font-family: 'Publico Text Mono Web Roman';
   font-weight: 400;
   font-style: normal;
@@ -113,7 +113,7 @@ body {
 
 .opener {
   z-index: 2;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center; }
   @media only screen and (max-width: 1060px) {
     .opener {
@@ -268,7 +268,7 @@ body {
   .chart-item .axis path,
   .chart-item .axis line {
     fill: none;
-    stroke: #fff;
+    stroke: #ffffff;
     shape-rendering: crispEdges; }
   /* Removed empty ruleset for .chart-item .x.axis path */
   .chart-item .axis text {
@@ -281,7 +281,8 @@ body {
     display: none; }
   .chart-item .line {
     fill: none;
-    stroke: white;
+    stroke:rgb(41,98,255);
+    /*stroke: rgb(255, 255, 255);*/
     stroke-width: 1.5px; }
   .chart-item .area {
     fill: rgba(0, 0, 128, 0.3);
@@ -313,7 +314,7 @@ body {
   .chart-item text.dollabill {
     fill: white; }
   .chart-item circle.cursor-indicator {
-    fill: rgba(247, 248, 225, 0.85); }
+    fill: rgba(242, 255, 4, 0.508); }
   .chart-item.playing {
     cursor: -moz-grab;
     cursor: -webkit-grab;
@@ -377,14 +378,14 @@ button {
     background: -moz-linear-gradient(to top, #f83945, #6a010a);
     background: linear-gradient(to top, #f83945, #6a010a); }
 
-@media (max-width: 400px) {
+@media (max-width: 40px) {
   #full-header.sticky-header {
-    height: 70px; }
+    height: 30px; }
     #full-header.sticky-header #header-logo {
       height: 30px; }
     #full-header.sticky-header #header-sharing {
       top: 22px;
-      width: 80px; }
+      width: 8px; }
       #full-header.sticky-header #header-sharing .header-icon {
         width: 26px;
         float: none; } }

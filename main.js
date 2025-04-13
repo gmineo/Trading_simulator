@@ -1,6 +1,4 @@
-//console.log('Lay not up for yourselves treasures upon earth, where moth and rust doth corrupt, and where thieves break through and steal: But lay up for yourselves treasures in heaven, where neither moth nor rust doth corrupt, and where thieves do not break through nor steal: For where your treasure is, there will your heart be also. \n\n\t\t—Matthew 6:19–21');
 
-// configuration
 var gameConfig = {
   'duration': 30000,
   'presentation': false,
@@ -55,7 +53,25 @@ var tickers = [
   {
     "ticker": "dell",
     "name": "DELL US Equity"
-  }/*,
+  },
+  {
+    "ticker": "cat",
+    "name": "CAT US Equity"
+  },
+  {
+    "ticker": "coke",
+    "name": "COKE US Equity"
+  },
+  {
+    "ticker": "brkb",
+    "name": "BRK/B US Equity"
+  },
+  {
+    "ticker": "ene",
+    "name": "Enron US Equity"
+  }
+
+  /*,
   {
     "ticker": "nflx",
     "name": "NFLX US Equity"
@@ -122,7 +138,7 @@ var tickers = [
   {
     "ticker": "1788",
     "name": "1788 HK (Guotai Junan)",
-    "description": "On Nov. 23, Guotai Junan announced its CEO was missing and could not be reached. http://www.bloomberg.com/news/articles/2015-11-23/guotai-junan-international-says-chairman-yim-can-t-be-contacted"
+    "description": "On Nov. 23, Guotai Junan announced its CEO was missing and could not be reached. 
   },
   {
     "ticker": "cag",
@@ -290,7 +306,7 @@ var taglines = [
   "The Big Long"
 ];
 
-initCanvas();
+// initCanvas();
 
 // gets s&p, then calls init
 getIndexFund();
@@ -395,12 +411,7 @@ function loadAd() {
   // fall back to widest IAB size that fits container
   var size = ad.node().dataset.size ? ad.node().dataset.size.split(",") : getBestAdSize(ad.node());
 
-  var new_leader = '<iframe width="' + size[0] + '" height="' + size[1] +
-      '" id="lb_ad_frame" style="visibility:hidden;"' +
-      'onload="this.style.visibility=' + "'visible'" +
-      '" class="ad_frame" scrolling="no" frameborder="no" src="' +
-      'http://www.bloomberg.com/graphics/assets/ad.html?url=/' + config.bb_slug +
-      "&size=" + size[0] + "x" + size[1] + "|1x1&iu=" + config.ad_code + "&correlator=" + config.correlator;
+  
   ad.node().style.display = "block";
   var randValue = new String(Math.random()).substring(2,11);
   var n = i + 1;
@@ -849,7 +860,7 @@ function playLevel(selection) {
         .attr("cy", point[1])
         .transition()
         .duration(250)
-        .attr("r", "50");
+        .attr("r", "25");
 
     }
 
