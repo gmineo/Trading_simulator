@@ -15,14 +15,14 @@
   font-style: normal;
   font-stretch: normal; }
 @font-face {
-  font-family: 'Publico Text Mono Web Sembd';
+  font-family: "CG Times", "Times New Roman", Times, serif;
   src: url("../fonts/PublicoTextMono-SemiboldItalic-Web.eot");
   src: url("../fonts/PublicoTextMono-SemiboldItalic-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.woff") format("woff"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-SemiboldItalic-Web.svg#Publico Text Mono Web Sembd") format("svg");
   font-weight: 600;
   font-style: italic;
   font-stretch: normal; }
 @font-face {
-  font-family: 'Publico Text Mono Web Sembd';
+  font-family: "CG Times", "Times New Roman", Times, serif;
   src: url("../fonts/PublicoTextMono-Semibold-Web.eot");
   src: url("../fonts/PublicoTextMono-Semibold-Web.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicoTextMono-Semibold-Web.woff") format("woff"), url("../fonts/PublicoTextMono-Semibold-Web.ttf") format("truetype"), url("../fonts/PublicoTextMono-Semibold-Web.svg#Publico Text Mono Web Sembd") format("svg");
   font-weight: 600;
@@ -84,7 +84,7 @@ body {
   overflow: hidden;
   background: #111115;
   color: rgb(255, 255,255 );
-  font-family: 'Publico Text Mono Web Roman';
+  font-family: "CG Times", "Times New Roman", Times, serif;
   font-weight: 400;
   font-style: normal;
   font-stretch: normal;
@@ -119,7 +119,7 @@ body {
     .opener {
       padding-top: 90px; } }
   .opener h1 {
-    font-family: 'Publico Text Mono Web Bold';
+    font-family: "CG Times", "Times New Roman", Times, serif;
     font-weight: 700;
     font-style: normal;
     font-stretch: normal;
@@ -141,9 +141,9 @@ body {
     text-align: left;
     margin: 1em auto; }
     .opener .instructions h2 {
-      font-size: 1.5em;
+      font-size: 2em;
       margin: 0;
-      font-family: 'Publico Text Mono Web Bold';
+      font-family: "CG Times", "Times New Roman", Times, serif;
       font-weight: 700;
       font-style: normal;
       font-stretch: normal; }
@@ -151,7 +151,8 @@ body {
       padding-left: 0;
       margin-bottom: 0; }
     .opener .instructions li {
-      font-size: 1.5em;
+      font-family: "CG Times", "Times New Roman", Times, serif;
+      font-size: 1.7em;
       list-style-type: none; }
   .opener .toph-byline {
     position: absolute;
@@ -189,14 +190,14 @@ body {
   background: #111115; }
   .levels > div div.alerts {
     position: absolute;
-    left: 10px;
-    bottom: 20px; }
+    left: 30%;
+    bottom: 40%; }
     .levels > div div.alerts div.alert {
       max-width: 2000px;
       color: black;
       background: rgba(180, 220, 240, 0.7);
       box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.32);
-      font-size: 30px;
+      font-size: 1.6em;
       padding: .5em;
       margin-bottom: 10px; }
       .levels > div div.alerts div.alert span.tweet {
@@ -215,14 +216,15 @@ body {
     left: 0;
     height: 50px;
     width: 100%;
-    background: -webkit-linear-gradient(to bottom, #f83945, #6a010a);
-    background: -moz-linear-gradient(to bottom, #f83945, #6a010a);
-    background: linear-gradient(to bottom, #f83945, #6a010a);
+    background: -webkit-linear-gradient(to bottom, #5bc0ff, #0066cc);
+    background: -moz-linear-gradient(to bottom, #5bc0ff, #0066cc);
+    background: linear-gradient(to bottom, #5bc0ff, #0066cc);
     font-size: 20px;
     color: white; }
     .levels > div div.toolbar div {
       display: inline-block;
-      background: #ff9e2a;
+      background: #c9ecff;   /* nuovo colore */
+      color: #00334d;        /* testo scuro per contrasto (facoltativo) */
       margin: 6px 0 6px 6px;
       color: black;
       padding: .5em; }
@@ -369,7 +371,7 @@ button {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: 'Publico Text Mono Web Roman';
+  font-family: "CG Times", "Times New Roman", Times, serif;
   font-weight: 400;
   font-style: normal;
   font-stretch: normal; }

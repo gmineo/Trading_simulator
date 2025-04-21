@@ -15,7 +15,9 @@ var gameConfig = {
   'readServer': 'chartGame',
   'readServerLimit': 1000
 }
-
+// in cima a main.js, dopo le altre variabili
+let titoliRend = [];        // rendimento di ogni titolo
+let sp500Rend  = [];        // rendimento relativo all’S&P500
 // all config vars are configurable by query string on localhost;
 // otherwise only ticker, gameid, and replay
 if(window.location.hostname === 'localhost') {
@@ -48,27 +50,27 @@ d3.select("body").classed("presentation", gameConfig.presentation);
 var tickers = [
   {
     "ticker": "aapl",
-    "name": "AAPL US Equity"
+    "name": "APPLE US Equity"
   },
   {
     "ticker": "dell",
     "name": "DELL US Equity"
-  },
+  }/*,
   {
     "ticker": "cat",
-    "name": "CAT US Equity"
+    "name": "CATERPILLAR US Equity"
   },
   {
     "ticker": "coke",
-    "name": "COKE US Equity"
+    "name": "COCA-COLA US Equity"
   },
   {
     "ticker": "brkb",
-    "name": "BRK/B US Equity"
+    "name": "BERKSHIRE HATHAWAY US Equity"
   },
   {
     "ticker": "ene",
-    "name": "Enron US Equity"
+    "name": "ENRON US Equity"
   }
 
   /*,
@@ -1031,13 +1033,16 @@ function playLevel(selection) {
           "highscore": stock.traderReturn
         }
       }
+      // ─ adesso ─  (numeri puri)
+      titoliRend.push(stock.traderReturn);   // 0.352
+      sp500Rend.push(stock.indexReturn);     // -0.077
+      var alertText = "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
+        "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
+        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>";
 
-      var alertText = "<p>La tua strategia ha reso il " + percentFormat(stock.traderReturn) + "</p>" +
-        "<p>La strategia BUY&HOLD del titolo ha reso il " + percentFormat(stock.stockReturn) + "</p>" +
-        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il " + percentFormat(stock.indexReturn) + "</p>";
-
+        
       addAlert(alertText, true);
-      
+
 // Commenta questo blocco per disabilitare il salvataggio
  /*
       if(gameConfig.playable) {
@@ -1203,28 +1208,78 @@ function playLevel(selection) {
   });
 }
 
-function gameOver() {
+/*  ─────  GAME‑OVER  ─────
+    Mostra riepilogo rendimenti + pulsante “Gioca ancora”
+*/
+function gameOver () {
+
+  /*‑‑ ri‑mostra l’header  ‑‑*/
   d3.select('#full-header').classed('hidden', false);
 
-  var gameOver = d3.select(".levels")
-    .append("div.game-over")
-    .style("z-index", d3.selectAll(".levels > div").size())
+  /*‑‑ overlay centrale ‑‑*/
+  const overlay = d3.select('.levels')
+    .append('div')
+    .attr('class', 'game-over')
+    .style('z-index', d3.selectAll('.levels > div').size());   // sopra a tutto
 
-  var gameOverText = gameOver.append("div.center-middle");
+  const center = overlay.append('div').attr('class', 'center-middle');
 
-  gameOverText.append("h2")
-    .text("GAME OVER");
 
-  gameOverText.append("p")
-    .text("Reload per provare ancora.");
+  /*───────────────────────────────────────
+    1.  RIEPILOGO DEI RENDIMENTI
+  ───────────────────────────────────────*/
 
-  initEnderCanvas(gameOver.append("canvas"));
+  const fmt = d3.format('.1%');
 
-  if(gameConfig.logging) {
+
+
+  const righe = titoliRend.map((r, i) =>
+    `Titolo ${i + 1} tuo rendimento: ${fmt(r)}`);  // ← ora r è un numero
+
+  const mediaTitoli = d3.mean(titoliRend);    // funziona perché sono numeri
+  const mediaSp500  = d3.mean(sp500Rend);
+
+  righe.push(`Media tuo rendimento titoli: ${fmt(mediaTitoli)}`);
+  righe.push(`Media rendimento S&P500: ${fmt(mediaSp500)}`);
+
+  
+
+  /*‑‑ paragrafo riepilogo ‑‑*/
+  center.append('p')
+    .html(righe.join('<br>'))
+    .style('font-size', '2em')
+    .style('margin-bottom', '20px')
+    .style('text-align', 'left');
+
+
+  /*───────────────────────────────────────
+    2.  TITOLONE + PULSANTE “GIOCA ANCORA”
+  ───────────────────────────────────────*/
+
+  center.append('h2').text('GAME OVER');
+
+  center.append('button')
+    .style('background', '#5bc0ff')   // azzurro
+    .style('color',        '#00334d') // testo blu scuro (contrasto)
+    .text('Gioca ancora')
+    .on('click', () => location.reload());
+
+
+  /*───────────────────────────────────────
+    3.  CANVAS DECORATIVO (come versione originale)
+  ───────────────────────────────────────*/
+  initEnderCanvas(overlay.append('canvas'));
+
+
+  /*───────────────────────────────────────
+    4.  LOG DI DEBUG (se abilitato)
+  ───────────────────────────────────────*/
+  if (gameConfig.logging) {
     console.table(analysisStats);
     console.table(cashRules);
   }
 }
+
 
 ////////////////////
 // HELPERS AND STUFF

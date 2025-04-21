@@ -24,7 +24,7 @@
         <!-- SEO headline rewritten to accomidate keywords -->
         <title>Trading Simulator</title>
 
-        <meta name="description" content="A trading simulator that allows you to practice your trading skills in a risk-free environment.">
+        <meta name="description" content="Simulatore di trading pensato per migliorare le tue strategie e testarle in totale sicurezza, senza rischiare capitale reale.">
         <!-- What is the main headline? -->
         <meta property="og:title" content="Trading Simulator">
 
@@ -288,7 +288,23 @@
         <script src="Smooth-0.1.7.js" charset="utf-8"></script>
         <script src="simplify.js" charset="utf-8"></script>
         <script src="main.js" charset="utf-8"></script>
-
+        <style>
+          /* sfondo blu scuro per il banner fisso in alto */
+          #full-header,
+          #full-header.sticky-header,
+          #full-header.sticky-header.stuck {
+              background-color: #002a7d;   /* blu scuro */
+          }
+        </style>
+        <style>
+          /* Elimina lo spazio bianco: attacca il gioco all’header */
+          .game-container{
+              top: 90px ;           /* da 90px → 0 */
+              height: calc(100% - 90px) ;     /* ripristina l’altezza piena */
+          }
+          body{ background:#111115; } 
+        </style>
+    
     
 
 </body></html>
