@@ -17,7 +17,8 @@ var gameConfig = {
 }
 // in cima a main.js, dopo le altre variabili
 let titoliRend = [];        // rendimento di ogni titolo
-let sp500Rend  = [];        // rendimento relativo all’S&P500
+let sp500Rend  = []; 
+let playedStockNames = []; // Add this line       // rendimento relativo all’S&P500
 // all config vars are configurable by query string on localhost;
 // otherwise only ticker, gameid, and replay
 if(window.location.hostname === 'localhost') {
@@ -353,6 +354,7 @@ function init() {
   d3.select(".opener")
     .select("button")
     .text(buttonText)
+    .style("background-color", "#ADD8E6") // This line sets the background color to light blue
     .on("click", getNextLevel)
     .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
     .on("touchend", function(d) { d3.select(this).classed("hover", false); });
@@ -1036,6 +1038,7 @@ function playLevel(selection) {
       // ─ adesso ─  (numeri puri)
       titoliRend.push(stock.traderReturn);   // 0.352
       sp500Rend.push(stock.indexReturn);     // -0.077
+      playedStockNames.push(stock.name); // Add this line
       var alertText = "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
         "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
         "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>";
@@ -1234,8 +1237,9 @@ function gameOver () {
 
 
   const righe = titoliRend.map((r, i) =>
-    `Titolo ${i + 1} tuo rendimento: ${fmt(r)}`);  // ← ora r è un numero
-
+    //`Titolo ${i + 1} tuo rendimento: ${fmt(r)}`);  // ← ora r è un numero
+    
+    `Titolo ${playedStockNames[i]} tuo rendimento: ${fmt(r)}`);  
   const mediaTitoli = d3.mean(titoliRend);    // funziona perché sono numeri
   const mediaSp500  = d3.mean(sp500Rend);
 
@@ -1252,17 +1256,30 @@ function gameOver () {
     .style('text-align', 'left');
 
 
-  /*───────────────────────────────────────
-    2.  TITOLONE + PULSANTE “GIOCA ANCORA”
-  ───────────────────────────────────────*/
+/* ───────────────────────────────────────
+   2. TITOLONE + PULSANTE “GIOCA ANCORA”
+   ───────────────────────────────────────*/
 
-  center.append('h2').text('GAME OVER');
+   center.append('h2').text('GAME OVER');
 
-  center.append('button')
-    .style('background', '#5bc0ff')   // azzurro
-    .style('color',        '#00334d') // testo blu scuro (contrasto)
-    .text('Gioca ancora')
-    .on('click', () => location.reload());
+   center.append('button')
+     .style('background', '#5bc0ff') // azzurro
+     .style('color', '#00334d')     // testo blu scuro (contrasto)
+     .text('Gioca ancora')
+     // .on('click', () => location.reload()); // RIGA ORIGINALE
+     .on('click', () => {                     // <<< INIZIO MODIFICA
+       cash = 500;                          // Resetta variabile
+       localStorage.removeItem("cash");     // Rimuovi da localStorage
+       // localStorage.setItem("cash", "500"); // Alternativa: Imposta a 500
+       location.reload();                   // Ricarica pagina
+     });                                      // <<< FINE MODIFICA
+   
+   /* ───────────────────────────────────────
+      3. CANVAS DECORATIVO (come versione originale)
+      ───────────────────────────────────────*/
+   initEnderCanvas(overlay.append('canvas'));
+   
+   // ... resto della funzione ...
 
 
   /*───────────────────────────────────────

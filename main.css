@@ -358,9 +358,9 @@ body {
     z-index: -1; }
 
 button {
-  background: -webkit-linear-gradient(to bottom, #f83945, #6a010a);
-  background: -moz-linear-gradient(to bottom, #f83945, #6a010a);
-  background: linear-gradient(to bottom, #f83945, #6a010a);
+  background: -webkit-linear-gradient(to bottom, #5bc0ff, #0066cc);
+  background: -moz-linear-gradient(to bottom, #5bc0ff, #0066cc);
+  background: linear-gradient(to bottom, #5bc0ff, #0066cc);
   color: white;
   border: none;
   cursor: pointer;
@@ -376,9 +376,9 @@ button {
   font-style: normal;
   font-stretch: normal; }
   button:hover, button.hover {
-    background: -webkit-linear-gradient(to top, #f83945, #6a010a);
-    background: -moz-linear-gradient(to top, #f83945, #6a010a);
-    background: linear-gradient(to top, #f83945, #6a010a); }
+    background: -webkit-linear-gradient(to top, #5bc0ff, #0066cc);
+    background: -moz-linear-gradient(to top, #5bc0ff, #0066cc);
+    background: linear-gradient(to top, #5bc0ff, #0066cc); }
 
 @media (max-width: 40px) {
   #full-header.sticky-header {
