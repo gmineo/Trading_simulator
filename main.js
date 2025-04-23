@@ -51,34 +51,34 @@ d3.select("body").classed("presentation", gameConfig.presentation);
 var tickers = [
   {
     "ticker": "aapl",
-    "name": "APPLE US Equity"
+    "name": "APPLE"
   },
   {
     "ticker": "dell",
-    "name": "DELL US Equity"
-  }/*,
+    "name": "DELL COMPUTER"
+  },
   {
     "ticker": "cat",
-    "name": "CATERPILLAR US Equity"
+    "name": "CATERPILLAR"
   },
   {
     "ticker": "coke",
-    "name": "COCA-COLA US Equity"
+    "name": "COCA-COLA"
   },
   {
     "ticker": "brkb",
-    "name": "BERKSHIRE HATHAWAY US Equity"
+    "name": "BERKSHIRE HATHAWAY"
   },
   {
     "ticker": "ene",
-    "name": "ENRON US Equity"
+    "name": "ENRON"
   }
 
-  /*,
+  ,
   {
     "ticker": "nflx",
-    "name": "NFLX US Equity"
-  },
+    "name": "NFLX"
+  }/*,
   {
     "ticker": "tsla",
     "name": "TSLA US Equity"
@@ -1239,7 +1239,7 @@ function gameOver () {
   const righe = titoliRend.map((r, i) =>
     //`Titolo ${i + 1} tuo rendimento: ${fmt(r)}`);  // ← ora r è un numero
     
-    `Titolo ${playedStockNames[i]} tuo rendimento: ${fmt(r)}`);  
+    `Titolo ${playedStockNames[i]} - tuo rendimento: ${fmt(r)}`);  
   const mediaTitoli = d3.mean(titoliRend);    // funziona perché sono numeri
   const mediaSp500  = d3.mean(sp500Rend);
 
@@ -1249,10 +1249,11 @@ function gameOver () {
   
 
   /*‑‑ paragrafo riepilogo ‑‑*/
-  center.append('p')
+  center.append('div')
     .html(righe.join('<br>'))
-    .style('font-size', '2em')
-    .style('margin-bottom', '20px')
+    .style('font-size', '1.3em')
+    .style('margin-bottom', '10px')
+    .style('max-width', '90vw')
     .style('text-align', 'left');
 
 
