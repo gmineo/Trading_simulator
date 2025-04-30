@@ -513,7 +513,8 @@ function processData(stock, data) {
     "indexReturn": indexReturn ? indexReturn : stockReturn,
     "traderReturn": null,
     "sharesHeld": 0,
-    "challengeUrl": window.location.href
+    "challengeUrl": window.location.href,
+    "spxt0.price":spxt1.price
   };
 }
 
@@ -1018,17 +1019,8 @@ function playLevel(selection) {
       });
       stock.traderReturn = (stock.cash[1].cash - stock.cash[0].cash) / stock.cash[0].cash;
 
-      if(userHistory[stock.ticker] && stock.traderReturn > userHistory[stock.ticker].highscore) {
-        addAlert("Record personale !", true);
-      }
 
-      if(stock.competitor && stock.competitor.returns.length === 1) {
-        if(stock.traderReturn > stock.competitor.returns[0]) {
-          addAlert("You beat your challenger " + percentFormat0(stock.traderReturn) + " to " + percentFormat0(stock.competitor.returns[0]) + "!", true);
-        } else {
-          addAlert("You lost to your challenger, " + percentFormat0(stock.traderReturn) + " to " + percentFormat0(stock.competitor.returns[0]) + ".", true);
-        }
-      }
+      
 
       // update user history
       if(userHistory[stock.ticker]) {
@@ -1044,11 +1036,31 @@ function playLevel(selection) {
       titoliRend.push(stock.traderReturn);   // 0.352
       sp500Rend.push(stock.indexReturn);     // -0.077
       playedStockNames.push(stock.name); // Add this line
+      // Ottieni i valori iniziale e finale del titolo
+      var initialValue = stock.values[0].price;
+      var finalValue = latest.price;
+
+      
+      // Calcola gli incrementi percentuali
+      var percentageChangeStock = ((finalValue - initialValue) / initialValue) * 100;
+      var spxInitialValue = spxt0;
+  /*    var percentageChangeSPX = ((spxt1 - spxt0) / spxt0) * 100;
+*/
+
+
       var alertText = "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
         "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
-        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>";
-
+        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
         
+        "<p>Valore iniziale del titolo <strong>" + initialValue + "</strong></p>"+
+        "<p>Valore finale del titolo <strong>" + finalValue + "</strong></p>"+
+        "<p>% titolo <strong>" + percentageChangeStock + "</strong></p>"+
+
+        "<p>Valore iniziale S&P500 <strong>" + spxInitialValue + "</strong></p>";
+        /*"<p>Valore finale S&P500:<strong>" + percentFormat(spxt1) + "</strong></p>"+
+        "<p>Cambiamento percentuale (S&P500): <strong>" + percentFormat(percentageChangeSPX) + "</strong></p>";
+        */
+  
       addAlert(alertText, true);
 
 // Commenta questo blocco per disabilitare il salvataggio
