@@ -434,3 +434,15 @@ g.histogram.trades text {
   display: none !important; }
 
 /*# sourceMappingURL=main.css.map */
+
+
+/* Contatore titoli visibile */
+.title-counter {
+    margin: 0 10px;
+    padding: 4px 8px;
+    background: #c9ecff;
+    color: #00334d;
+    border-radius: 4px;
+    font-size: 16px;
+    display: inline-block;
+}

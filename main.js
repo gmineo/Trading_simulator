@@ -1,4 +1,16 @@
 
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  const day = ("0" + d.getDate()).slice(-2);
+  const month = ("0" + (d.getMonth() + 1)).slice(-2);
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+let currentStep = 0;
+const totalSteps = 10;
+
 var gameConfig = {
   'duration': 30000,
   'presentation': false,
@@ -360,7 +372,13 @@ function init() {
     .select("button")
     .text(buttonText)
     .style("background-color", "#ADD8E6") // This line sets the background color to light blue
-    .on("click", getNextLevel)
+    .on("click", function() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
+    }
+    getNextLevel();
+  })
     .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
     .on("touchend", function(d) { d3.select(this).classed("hover", false); });
 
@@ -407,7 +425,13 @@ function loadAd() {
   adWrapper.append("div.toolbar")
     .append("button.next")
     .text("Next")
-    .on("click", getNextLevel)
+    .on("click", function() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
+    }
+    getNextLevel();
+  })
     .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
     .on("touchend", function(d) { d3.select(this).classed("hover", false); });
 
@@ -494,6 +518,13 @@ function processData(stock, data) {
   var t0 = _.min(data, ƒ('date'));
   var t1 = _.max(data, ƒ('date'));
   var stockReturn = (t1.price - t0.price) / t0.price;
+  const formatDate = (d) => new Date(d).toLocaleDateString('it-CH', {
+    year:  'numeric',
+    month: '2-digit',
+    day:   '2-digit'
+  });
+
+
 
   if(indexFund) {
     var spxt0 = closest(ƒ('date'))(indexFund.values, t0.date);
@@ -513,7 +544,11 @@ function processData(stock, data) {
     "indexReturn": indexReturn ? indexReturn : stockReturn,
     "traderReturn": null,
     "sharesHeld": 0,
-    "challengeUrl": window.location.href
+    "challengeUrl": window.location.href,
+    "spxStart": spxt0.price,
+    "spxEnd":   spxt1.price,
+    "spxStartDate":  spxt0.date,
+    "spxEndDate":    spxt1.date
   };
 }
 
@@ -1005,9 +1040,16 @@ function playLevel(selection) {
         .style("opacity", 0);
 
       // button to advance
+      toolbar.append("div").attr("class", "title-counter").text(currentStep + "/" + totalSteps);
       toolbar.append("button.next")
         .text("Next")
-        .on("click", getNextLevel)
+        .on("click", function() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
+    }
+    getNextLevel();
+  })
         .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
         .on("touchend", function(d) { d3.select(this).classed("hover", false); });
 
@@ -1046,7 +1088,9 @@ function playLevel(selection) {
       playedStockNames.push(stock.name); // Add this line
       var alertText = "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
         "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
-        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>";
+        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
+        "<p>S&P&nbsp;500 iniziale (" + formatDate(stock.spxStartDate) + "): <strong>" + stock.spxStart.toFixed(2) + "</strong> – finale (" + formatDate(stock.spxEndDate) + "): <strong>" + stock.spxEnd.toFixed(2) + "</strong></p>";
+;
 
         
       addAlert(alertText, true);
@@ -1959,3 +2003,14 @@ function histogram() {
   return chart;
 }
 
+
+
+function showStockName(stockName) {
+  if (d3.select(".stock-name").empty()) {
+    d3.select(".toolbar").append("div")
+      .attr("class", "stock-name")
+      .text(stockName);
+  } else {
+    d3.select(".stock-name").text(stockName);
+  }
+}
