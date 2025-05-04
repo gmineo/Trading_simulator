@@ -1086,14 +1086,13 @@ function playLevel(selection) {
       titoliRend.push(stock.traderReturn);   // 0.352
       sp500Rend.push(stock.indexReturn);     // -0.077
       playedStockNames.push(stock.name); // Add this line
-      var alertText = "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
-        "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
-        "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
-        "<p>S&P&nbsp;500 iniziale (" + formatDate(stock.spxStartDate) + "): <strong>" + stock.spxStart.toFixed(2) + "</strong> – finale (" + formatDate(stock.spxEndDate) + "): <strong>" + stock.spxEnd.toFixed(2) + "</strong></p>";
-;
-
-        
-      addAlert(alertText, true);
+      var alertText = "<p><strong>L'azione era " + stock.name + " nel periodo " + formatDate(stock.spxStartDate) + "-" + formatDate(stock.spxEndDate) + ":</strong></p>" + // Aggiunto messaggio in grassetto
+          "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
+          "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
+          "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>" +
+          "<p>S&P&nbsp;500 iniziale (" + formatDate(stock.spxStartDate) + "): <strong>" + stock.spxStart.toFixed(2) + "</strong> – finale (" + formatDate(stock.spxEndDate) + "): <strong>" + stock.spxEnd.toFixed(2) + "</strong></p>";
+         ;     
+  addAlert(alertText, true);
 
 // Commenta questo blocco per disabilitare il salvataggio
  /*
