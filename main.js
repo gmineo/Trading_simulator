@@ -1086,11 +1086,13 @@ function playLevel(selection) {
       titoliRend.push(stock.traderReturn);   // 0.352
       sp500Rend.push(stock.indexReturn);     // -0.077
       playedStockNames.push(stock.name); // Add this line
-      var alertText = <p>
-  <strong class="testo-ingrandito">
-    L'azione era " + stock.name + " nel periodo " + formatDate(stock.spxStartDate) + "-" + formatDate(stock.spxEndDate) + ":
-  </strong>+
-</p>) + ":</strong></p>" + // Aggiunto messaggio in grassetto
+     var alertText = `
+  <p>
+    <strong class="testo-ingrandito">
+      L'azione era "${stock.name}" nel periodo ${formatDate(stock.spxStartDate)} - ${formatDate(stock.spxEndDate)}:
+    </strong>
+  </p>
+`+
           "<p>La tua strategia ha reso il <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
           "<p>La strategia BUY&HOLD del titolo ha reso il <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
           "<p>La strategia BUY&HOLD dell'S&P500 ha reso il <strong>" + percentFormat(stock.indexReturn) + "</strong></p>" +
