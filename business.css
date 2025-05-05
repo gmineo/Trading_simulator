@@ -675,7 +675,7 @@ img.infographic {
 /*Style for sticky header*/
 
 #full-header.sticky-header {
-  height: 91px;
+  height: 80px;
   z-index: 10;
 }
 
