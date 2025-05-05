@@ -701,7 +701,7 @@ img.infographic {
 
 #full-header-space{
   display: none;
-  height: 91px
+  height: 80px
 }
 #full-header-space.stuck{
   display: block;
