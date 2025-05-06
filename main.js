@@ -651,7 +651,10 @@ function playLevel(selection) {
     // DOM-building begins here
 
     var toolbar = item.append("div.toolbar");
-    var alerts = item.append("div.alerts");
+    var alerts = item.append("div.alerts")
+        .style("position", "fixed")
+        .style("bottom", "0")
+        .style("left", "0");;
 
     var timeLabel = toolbar.append("div.time").text(timerFormat(duration));
     var cashHolder = toolbar.append("div.cash");
@@ -1836,7 +1839,7 @@ function closest(accessor) {
   }
 }
 
-function centerPopup(width, height) {
+function x(width, height) {
   var wLeft = window.screenLeft ? window.screenLeft : window.screenX;
   var wTop = window.screenTop ? window.screenTop : window.screenY;
   var left = wLeft + (window.innerWidth / 2) - (width / 2);
