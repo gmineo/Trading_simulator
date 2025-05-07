@@ -68,7 +68,7 @@ var tickers = [
   {
     "ticker": "dell",
     "name": "DELL COMPUTER"
-  },
+  }/*,
   {
     "ticker": "cat",
     "name": "CATERPILLAR"
@@ -1356,6 +1356,7 @@ function gameOver () {
     console.table(analysisStats);
     console.table(cashRules);
   }
+  showGameOverForm();
 }
 
 
