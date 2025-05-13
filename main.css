@@ -447,26 +447,4 @@ g.histogram.trades text {
     display: inline-block;
 }
 
-/* Regole base per il form */
-#game-over-form {
-    display: none;
-    position: fixed;
-    top: 91px;
-    right: 0;
-    background-color: #fff;
-    padding: 20px;
-    border: 2px solid #002a7d;
-    z-index: 10000;
-    width: 400px; /* dimensione standard */
-    box-sizing: border-box;
-}
 
-/* Su dispositivi mobili il form sarà più piccolo */
-@media only screen and (max-width: 480px) {
-    #game-over-form {
-        width: 90%;
-        top: 10%;
-        right: 5%;
-        padding: 10px;
-    }
-}
