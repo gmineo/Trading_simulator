@@ -852,7 +852,7 @@ img.infographic {
 }
 
 /* Su dispositivi mobili il form sarà più piccolo */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 800px) {
   #game-over-form {
       width: 90%;
       top: 10%;
