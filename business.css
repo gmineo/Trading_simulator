@@ -854,7 +854,7 @@ img.infographic {
 /* Su dispositivi mobili il form sarà più piccolo */
 @media only screen and (max-width: 800px) {
   #game-over-form {
-      width: min(40%, 180px);
+      width: min(10%, 320px);
       /*width: 90%;
       /*top: 10%;
       right: 5%;
