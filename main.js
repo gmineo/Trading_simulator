@@ -12,7 +12,7 @@ let currentStep = 0;
 const totalSteps = 10;
 
 var gameConfig = {
-  'duration': 30000,
+  'duration': 3000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -1332,7 +1332,8 @@ function gameOver () {
        cash = 500;                          // Resetta variabile
        localStorage.removeItem("cash");     // Rimuovi da localStorage
        // localStorage.setItem("cash", "500"); // Alternativa: Imposta a 500
-       location.reload();                   // Ricarica pagina
+       // location.reload();    
+       window.location.href = 'contact.html';                // Ricarica pagina
      });                                      // <<< FINE MODIFICA
    
    /* ───────────────────────────────────────
