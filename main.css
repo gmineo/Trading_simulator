@@ -62,7 +62,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  font-family: 'Roboto';
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 #full-header {
@@ -83,7 +83,7 @@ body {
   height: calc(100% - 90px);
   overflow: hidden;
   background: #111115;
-  color: rgb(255, 255,255 );
+  color: rgb(236, 18, 18);
   font-family: "CG Times", "Times New Roman", Times, serif;
   font-weight: 400;
   font-style: normal;
@@ -133,13 +133,13 @@ body {
     margin: .5em;
     padding: .5em; }
   .opener .instructions {
-    max-width: 500px;
-    color: black;
-    background: rgba(243, 246, 248, 0.879);
-    box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.32);
-    padding: 1em;
-    text-align: left;
-    margin: 1em auto; }
+    max-width: 700px;      /* aumenta la larghezza massima */
+    margin: 1.5em auto;    /* centra e aggiunge spazio sopra/sotto */
+    background: rgba(243, 246, 248, 0.88); /* mantiene il colore chiaro trasparente */
+    box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.18);
+    padding: 2em 2em 1.5em 2em;
+    border-radius: 18px;
+    text-align: left; }
     .opener .instructions h2 {
       font-size: 2em;
       margin: 0;
@@ -223,7 +223,7 @@ body {
     color: white; }
     .levels > div div.toolbar div {
       display: inline-block;
-      background: #c9ecff;   /* nuovo colore */
+      background: #c9e3ff;   /* nuovo colore */
       color: #00334d;        /* testo scuro per contrasto (facoltativo) */
       margin: 6px 0 6px 6px;
       color: black;
@@ -445,6 +445,106 @@ g.histogram.trades text {
     border-radius: 4px;
     font-size: 16px;
     display: inline-block;
+}
+
+.modern-instructions h2 {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.15em;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+}
+
+.modern-instructions .subtitle {
+  display: block;
+  font-size: 1.1em;
+  color: #5bc0ff;
+  font-weight: 700;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.5px;
+}
+
+.modern-instructions ul {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.05em;
+  color: #ede0e2;
+  margin-top: 0.5em;
+  padding-left: 1.2em;
+  text-align: left;
+}
+
+.modern-instructions li {
+  margin-bottom: 0.4em;
+}
+
+.modern-instructions strong {
+  color: #5bc0ff;
+  font-weight: 700;
+}
+
+.app-title {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  color: #5bc0ff;
+  font-size: 2.5em;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.intro-card {
+  background: rgba(0, 42, 125, 0.92); /* blu scuro trasparente */
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 2em 2em 1.5em 2em;
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.play-btn {
+  background: linear-gradient(90deg, #5bc0ff 0%, #0072ff 100%);
+  color: #fff;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8em 2.2em;
+  margin-bottom: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(91,192,255,0.18);
+  transition: background 0.2s;
+}
+.play-btn:hover {
+  background: linear-gradient(90deg, #0072ff 0%, #5bc0ff 100%);
+}
+
+.modern-instructions .main-desc {
+  display: block;
+  margin-bottom: 0.7em;
+  font-size: 1em;
+  color: #0c74ec;
+  font-weight: 400;
+}
+
+.modern-instructions h2,
+.modern-instructions .main-desc,
+.modern-instructions .subtitle,
+.modern-instructions ul,
+.modern-instructions li {
+  color: #0c0101 !important;
+}
+
+.modern-instructions .subtitle {
+  color: #f30707 !important;
+}
+
+.modern-instructions strong {
+  color: #1e06f6;
+  font-weight: 700;
 }
 
 

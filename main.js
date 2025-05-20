@@ -1092,14 +1092,14 @@ function playLevel(selection) {
       var alertText = `
   <p>
     <strong class="testo-ingrandito">
-      L'azione era "${stock.name}" nel periodo ${formatDate(stock.spxStartDate)} - ${formatDate(stock.spxEndDate)}:
+      The stock was “${stock.name}” from ${formatDate(stock.spxStartDate)} to ${formatDate(stock.spxEndDate)}:
     </strong>
   </p>
 `+
 
-        "<p>La tua strategia: <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
-        "<p>Strategia Buy & Hold sul titolo: <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
-        "<p> Strategia Buy & Hold sull’S&P 500: <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
+        "<p>Your strategy return: <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
+        "<p>Buy-&-Hold on this stock: <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
+        "<p>Buy-&-Hold on the S&P 500: <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
         "<p>S&P&nbsp;500 iniziale (" + formatDate(stock.spxStartDate) + "): <strong>" + stock.spxStart.toFixed(2) + "</strong> – finale (" + formatDate(stock.spxEndDate) + "): <strong>" + stock.spxEnd.toFixed(2) + "</strong></p>";
 ;
 

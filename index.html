@@ -19,6 +19,11 @@
 
 
 <html class="no-js"><!--<![endif]--><head>
+  <meta charset="utf-8">
+  <title>Trading Simulator</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+3:400,600,700&display=swap" rel="stylesheet">
+  <!-- Altri link ai tuoi CSS -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"><link type="text/css" rel="stylesheet" href="application.css">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -225,10 +230,53 @@
     height: 36px;
 }
 </style>
+    <style>
+.intro-card {
+  background: rgba(0, 42, 125, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 2em 2em 1.5em 2em;
+  max-width: 850px;      /* aumentato da 420px */
+  min-width: 320px;      /* opzionale: garantisce una larghezza minima */
+  margin: 0 auto;
+  text-align: center;
+}
+.modern-instructions h2,
+.modern-instructions .main-desc,
+.modern-instructions .subtitle,
+.modern-instructions ul,
+.modern-instructions li {
+  color: #000000 !important;
+}
+.modern-instructions .subtitle {
+  color: #f90404 !important;
+}
+.modern-instructions strong {
+  color: #1d01f2;
+  font-weight: 700;
+}
+.play-btn {
+  background: linear-gradient(90deg, #5bc0ff 0%, #0072ff 100%);
+  color: #fff;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9em 2.5em;
+  margin-bottom: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(91,192,255,0.18);
+  transition: background 0.2s;
+}
+.play-btn:hover {
+  background: linear-gradient(90deg, #0072ff 0%, #5bc0ff 100%);
+}
+</style>
     <body>
         
       <div id="full-header" class="sticky-header" style="position: relative;">
-        <span class="mia-scritta-personalizzata" style="color: white; margin-left: 15px;">By Gabriele Mineo version 1.4</span>
+        <span class="mia-scritta-personalizzata" style="color: white; margin-left: 15px;">By Gabriele Mineo version 1.5</span>
         
     </div>
 
@@ -243,24 +291,26 @@
 
           <div class="screen opener">
             <div class="center-middle">
-              <h1>Trading Simulator</h1>
-  
-              <button>Play</button>
-              <div class="instructions">
-                <h2>Simula il trading con 10 azioni e vedi il risultato finale
-                    Dopo ogni sessione verrà svelato il nome dell'azione
-                  
-                  Come giocare:</h2>
-                
-                <ul>
-                    <li>Tocca lo schermo → Acquista il titolo</li>
-                    <li>Tieni premuto → Mantieni la posizione</li>
-                    <li>Rilascia → Vendi il titolo</li>
-                </ul>
+              <h1 class="app-title">Trading Simulator</h1>
+
+              <div class="intro-card">
+                <button class="play-btn">Play</button>
+                <div class="instructions modern-instructions">
+                  <h2>
+                    <span class="main-desc">
+                      Start a trading simulation with <strong>10 mystery stocks</strong> and track your performance.<br>
+                      After each session, the real name of every stock is revealed.
+                    </span>
+                    <span class="subtitle">How to Play</span>
+                  </h2>
+                  <ul>
+                    <li>Tap or click the screen → <strong>Buy</strong> the stock</li>
+                    <li>Press and hold → <strong>Hold</strong> the position</li>
+                    <li>Release → <strong>Sell</strong> the stock</li>
+                  </ul>
+                </div>
               </div>
             </div>
-
-            <canvas width="1646" height="903"></canvas>
           </div>
 
           <div class="screen levels"></div>
