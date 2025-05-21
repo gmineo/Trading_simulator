@@ -35,6 +35,9 @@
       background: var(--tv-bg) !important;
       font-family: var(--tv-font) !important;
       color: var(--tv-txt-main);
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     /* --- TOP BAR BRANDING --- */
     .top-header-bar {
@@ -61,8 +64,21 @@
       vertical-align: middle;
       margin-right: 0.25em;
     }
+    /* Spazio per la barra branding SU MOBILE E TABLET */
+    @media (max-width: 900px) {
+      .game-container, .screen.levels {
+        padding-top: 58px !important;
+        box-sizing: border-box;
+      }
+    }
     @media (max-width:600px){
-      .top-header-bar { font-size: 1em; padding: 0.7em 0 0.7em 0;}
+      .top-header-bar {
+        font-size: 0.96em;
+        padding: 0.7em 0 0.7em 0;
+      }
+      .game-container, .screen.levels {
+        padding-top: 50px !important;
+      }
     }
     /* SOLO colori/font TradingView, il resto è gestito da main.js */
     .app-title {
