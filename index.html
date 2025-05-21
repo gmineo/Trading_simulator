@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <title>Trading Simulator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font -->
+  <!-- Google Fonts TradingView look -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+3:400,600,700&display=swap" rel="stylesheet">
   <!-- CSS originali -->
   <link rel="stylesheet" type="text/css" href="business.css">
   <link rel="stylesheet" type="text/css" href="main.css">
-  <!-- Icone -->
+  <!-- Icone TradingView -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
   <!-- d3.js e plugin -->
   <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -19,17 +19,16 @@
   <script src="Smooth-0.1.7.js"></script>
   <script src="simplify.js"></script>
   <script src="lodash.underscore.min.js"></script>
-  <!-- STILE MODERNO SOLO VISIVO, SENZA CAMBIARE LAYOUT -->
   <style>
     :root {
-      --tv-bg: #111522;
-      --tv-card-bg: rgba(25, 34, 53, 0.93);
-      --tv-accent: #35c4ff;
-      --tv-accent2: #006cff;
-      --tv-txt-main: #e8eff6;
-      --tv-border: rgba(60, 110, 220, 0.13);
-      --tv-radius: 19px;
-      --tv-shadow: 0 4px 20px 0 rgba(10,40,80,0.15);
+      --tv-bg: #131722;
+      --tv-bg-light: #23283b;
+      --tv-accent: #2962ff;
+      --tv-accent2: #21b7ff;
+      --tv-txt-main: #e0e6ed;
+      --tv-txt-sec: #b1bed7;
+      --tv-border: #253357;
+      --tv-radius: 14px;
       --tv-font: 'Roboto', 'Source Sans 3', Arial, sans-serif;
     }
     html, body {
@@ -37,10 +36,39 @@
       font-family: var(--tv-font) !important;
       color: var(--tv-txt-main);
     }
-    .app-title {
-      font-size: 2.2em;
+    /* --- TOP BAR BRANDING --- */
+    .top-header-bar {
+      width: 100vw;
+      background: #23283b;
+      color: #21b7ff;
+      font-family: 'Roboto', 'Source Sans 3', Arial, sans-serif;
+      font-size: 1.15em;
       font-weight: 900;
-      color: var(--tv-accent);
+      letter-spacing: 1px;
+      padding: 1em 0 0.9em 0;
+      text-align: center;
+      border-bottom: 1.5px solid #253357;
+      box-shadow: 0 4px 20px 0 rgba(10,40,80,0.08);
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      user-select: none;
+    }
+    .top-header-bar i {
+      font-size: 1.35em;
+      color: #2962ff;
+      vertical-align: middle;
+      margin-right: 0.25em;
+    }
+    @media (max-width:600px){
+      .top-header-bar { font-size: 1em; padding: 0.7em 0 0.7em 0;}
+    }
+    /* SOLO colori/font TradingView, il resto è gestito da main.js */
+    .app-title {
+      font-size: 2.18em;
+      font-weight: 900;
+      color: var(--tv-accent2);
       letter-spacing: 1.2px;
       margin-bottom: 0.3em;
       margin-top: 0.5em;
@@ -48,205 +76,49 @@
       text-align: center;
     }
     .intro-card {
-      background: var(--tv-card-bg);
+      background: var(--tv-bg-light);
       border-radius: var(--tv-radius);
-      box-shadow: var(--tv-shadow);
+      box-shadow: 0 2px 10px 0 rgba(41,98,255,0.10);
       padding: 2.5em 2em 2em 2em;
       max-width: 440px;
       margin: 0 auto;
       text-align: center;
       border: 1.2px solid var(--tv-border);
-      backdrop-filter: blur(5px);
-    }
-    .intro-card:hover {
-      box-shadow: 0 8px 32px 0 rgba(40,110,255,0.18);
     }
     .play-btn {
       background: linear-gradient(90deg, var(--tv-accent) 0%, var(--tv-accent2) 100%);
       color: #fff;
-      font-size: 1.3em;
+      font-size: 1.17em;
       font-weight: 700;
       border: none;
-      border-radius: 13px;
-      padding: 1.1em 2.5em;
-      margin-bottom: 1.3em;
-      margin-top: 0.5em;
+      border-radius: 10px;
+      padding: 1em 2.3em;
+      margin-bottom: 1.1em;
+      margin-top: 0.6em;
       cursor: pointer;
-      box-shadow: 0 2px 12px rgba(60,164,255,0.18);
-      transition: background 0.14s, transform 0.14s;
+      box-shadow: 0 2px 8px rgba(41,98,255,0.12);
+      font-family: var(--tv-font);
       display: inline-flex;
       align-items: center;
       gap: 0.5em;
-      font-family: var(--tv-font);
       outline: none;
-      position: relative;
-      overflow: hidden;
     }
     .play-btn:focus, .play-btn:hover {
       background: linear-gradient(90deg, var(--tv-accent2) 0%, var(--tv-accent) 100%);
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 5px 22px 0 rgba(40,182,255,0.19);
     }
     .play-btn i {
       font-size: 1.6em;
       vertical-align: middle;
       color: #fff;
     }
-    .modern-instructions h2 {
-      font-size: 1.15em;
-      margin-bottom: 0.5em;
-      color: #fff;
-      font-weight: 700;
-    }
-    .modern-instructions .main-desc {
-      display: block;
-      margin-bottom: 0.2em;
-      color: #87bfff;
-      font-weight: 400;
-    }
-    .modern-instructions .subtitle {
-      display: block;
-      color: #fa3737;
-      font-size: 1em;
-      margin-top: 0.35em;
-      font-weight: 700;
-    }
-    .modern-instructions ul {
-      text-align: left;
-      padding: 0 1.1em;
-      margin: 0.7em 0;
-      color: #e6e9ef;
-    }
-    .modern-instructions li {
-      margin-bottom: 0.7em;
-      font-size: 1em;
-      position: relative;
-      padding-left: 1.2em;
-    }
-    .modern-instructions li:before {
-      content: '→';
-      color: var(--tv-accent2);
-      font-weight: 700;
-      position: absolute;
-      left: 0;
-    }
-    .modern-instructions strong {
-      color: var(--tv-accent2);
-      font-weight: 700;
-    }
-    /* Stili solo VISIVI per la toolbar e i grafici */
-    .toolbar {
-      background: rgba(32,42,65, 0.94) !important;
-      color: var(--tv-txt-main) !important;
-      font-family: var(--tv-font) !important;
-      border-bottom: 1.3px solid var(--tv-border);
-      border-radius: 0 0 16px 16px;
-      box-shadow: 0 4px 18px 0 rgba(30,80,140,0.12);
-      backdrop-filter: blur(8px);
-      font-size: 1.12em;
-      height: auto;
-      min-height: 38px;
-      padding: 0.25em 0.9em;
-      display: flex;
-      align-items: center;
-      z-index: 10;
-      position: relative; /* Non absolute/fixed! */
-    }
-    .toolbar button, .toolbar .next {
-      background: linear-gradient(90deg, var(--tv-accent2) 60%, var(--tv-accent) 100%) !important;
-      color: #fff !important;
-      font-weight: 700;
-      border: none !important;
-      border-radius: 9px;
-      box-shadow: 0 2px 8px 0 rgba(35,180,255,0.10);
-      outline: none;
-      transition: background 0.19s, transform 0.14s;
-      font-size: 1em;
-      height: 32px;
-      padding: .38em 1.2em;
-      margin-left: 8px;
-      margin-right: 6px;
-      cursor: pointer;
-    }
-    .toolbar button:hover, .toolbar .next:hover {
-      background: linear-gradient(90deg, var(--tv-accent) 60%, var(--tv-accent2) 100%) !important;
-      transform: translateY(-2px) scale(1.05);
-    }
-    .toolbar .time {
-      color: var(--tv-accent2);
-      margin-left: auto;
-      font-weight: 700;
-    }
-    .toolbar .cash .net {
-      color: #1bd273 !important;
-      font-weight: bold;
-    }
-    .chart-item .axis path,
-    .chart-item .axis line {
-      stroke: #25375d !important;
-      stroke-width: 2px !important;
-    }
-    .chart-item .axis text {
-      font: 600 16px 'Roboto', Arial, sans-serif !important;
-      fill: #b8cfff !important;
-      opacity: 0.84;
-    }
-    .chart-item .gridlines line {
-      stroke: rgba(110, 160, 255, 0.19) !important;
-      stroke-width: 1.2px !important;
-    }
-    .chart-item .line {
-      stroke: var(--tv-accent2) !important;
-      stroke-width: 2.3px !important;
-      filter: drop-shadow(0 0 3px #006cff33);
-    }
-    .chart-item .area {
-      fill: linear-gradient(180deg, #35c4ff11 40%, #111522 90%) !important;
-      opacity: 0.73 !important;
-    }
-    .chart-item text.share {
-      fill: #21e0ff !important;
-      font-weight: bold;
-    }
-    .chart-item text.cash.buy { fill: #fa3737 !important;}
-    .chart-item text.cash.sell { fill: #1bd273 !important;}
-    .chart-item text.dollabill { fill: #fff !important;}
-    .chart-item circle.cursor-indicator {
-      fill: #3ca4ff60 !important;
-      stroke: #fff !important;
-      stroke-width: 2px;
-      filter: drop-shadow(0 0 6px #35c4ff44);
-    }
-    .game-over {
-      background: rgba(32,42,65, 0.91) !important;
-      border-radius: 20px;
-      box-shadow: 0 6px 32px 0 rgba(25,40,70,0.28);
-      padding: 4em 1.4em 3em 1.4em !important;
-      text-align: center;
-      color: var(--tv-txt-main);
-      font-family: var(--tv-font) !important;
-    }
-    .game-over h2 {
-      font-size: 3.4em !important;
-      color: var(--tv-accent2) !important;
-      text-shadow: 0 2px 10px #21b7ff30;
-    }
-    .game-over p {
-      max-width: 20em;
-      margin: 1em auto;
-      color: var(--tv-txt-main);
-      font-size: 1.3em !important;
-      font-family: var(--tv-font) !important;
-    }
-    @media (max-width: 700px) {
-      .app-title { font-size: 1.23em; }
-      .intro-card { padding: 1.1em 0.5em 1em 0.5em; max-width: 98vw;}
-      .modern-instructions ul { padding: 0 0.3em; }
-      .toolbar { font-size: 1em; padding: 0.15em 0.5em;}
-    }
   </style>
 </head>
 <body>
+  <!-- TOP BAR BRANDING -->
+  <div class="top-header-bar">
+    <i class="ri-bar-chart-grouped-line"></i>
+    Trading Simulator By Gabriele Mineo v1.5
+  </div>
   <div class="game-container">
     <div class="screen opener">
       <div class="center-middle">
@@ -274,7 +146,6 @@
     </div>
     <div class="screen levels"></div>
   </div>
-  <!-- Script principale del gioco -->
   <script src="main.js"></script>
 </body>
 </html>
