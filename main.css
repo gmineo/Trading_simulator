@@ -547,3 +547,82 @@ g.histogram.trades text {
 }
 
 
+/* === MOBILE FIRST ADATTAMENTI PER TOOLBAR === */
+@media (max-width: 600px) {
+  .levels > div .toolbar {
+    position: fixed;
+    top: 48px; /* altezza top-header-bar in mobile (circa) */
+    left: 0;
+    width: 100vw;
+    height: 48px;
+    z-index: 1100; /* sopra il canvas ma sotto modali */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5em;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, #5bc0ff, #0066cc);
+    border-bottom: 1.5px solid #253357;
+  }
+  /* Timer: bello grande e sempre visibile */
+  .levels > div .toolbar .time {
+    font-size: 1.35em;
+    font-weight: 900;
+    color: #fff;
+    margin-right: 0;
+    background: #0066cc55;
+    padding: 5px 13px;
+    border-radius: 9px;
+    order: 2; /* appare a destra */
+  }
+  /* Bottone Next: grande e non sovrapposto */
+  .levels > div .toolbar button.next {
+    font-size: 1.15em;
+    height: 40px;
+    min-width: 92px;
+    padding: 0.6em 1.3em;
+    border-radius: 10px;
+    margin-left: 0.7em;
+    margin-right: 0;
+    float: none;
+    order: 3; /* dopo il timer */
+    box-shadow: 0 2px 8px rgba(41,98,255,0.14);
+    z-index: 1120;
+  }
+  /* Altri elementi toolbar (es: saldo) ordinati bene */
+  .levels > div .toolbar > div,
+  .levels > div .toolbar > span {
+    font-size: 1em;
+    margin: 0 0.2em;
+    order: 1; /* prima rispetto a timer/next */
+  }
+  /* Nessun overflow laterale */
+  .levels > div .toolbar * {
+    box-sizing: border-box;
+  }
+  /* Spazio al contenuto principale sotto la toolbar */
+  .levels, .game-container {
+    padding-top: 96px !important;
+  }
+}
+
+/* Migliora l’accessibilità su schermi piccolissimi */
+@media (max-width: 400px) {
+  .levels > div .toolbar {
+    height: 44px;
+    padding: 0 0.3em;
+  }
+  .levels > div .toolbar .time {
+    font-size: 1.12em;
+    padding: 3px 8px;
+  }
+  .levels > div .toolbar button.next {
+    font-size: 1em;
+    height: 36px;
+    min-width: 72px;
+    padding: 0.4em 0.6em;
+  }
+  .levels, .game-container {
+    padding-top: 88px !important;
+  }
+}
