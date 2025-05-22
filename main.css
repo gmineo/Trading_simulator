@@ -607,7 +607,7 @@ g.histogram.trades text {
 }
 
 /* TOOLBAR MOBILE - SEMPRE VISIBILE */
-@media (max-width: 650px) {
+@media (max-width: 850px) {
   .levels > div .toolbar {
     position: fixed !important;
     top: 48px; /* altezza barra logo */
