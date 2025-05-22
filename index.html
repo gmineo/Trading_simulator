@@ -25,10 +25,13 @@
       --tv-bg-light: #23283b;
       --tv-accent: #2962ff;
       --tv-accent2: #21b7ff;
+      --tv-green: #1bd273;
+      --tv-red: #fa3737;
+      --tv-yellow: #ffc700;
       --tv-txt-main: #e0e6ed;
       --tv-txt-sec: #b1bed7;
       --tv-border: #253357;
-      --tv-radius: 14px;
+      --tv-radius: 20px;
       --tv-font: 'Roboto', 'Source Sans 3', Arial, sans-serif;
     }
     html, body {
@@ -64,7 +67,6 @@
       vertical-align: middle;
       margin-right: 0.25em;
     }
-    /* Spazio per la barra branding SU MOBILE E TABLET */
     @media (max-width: 900px) {
       .game-container, .screen.levels {
         padding-top: 58px !important;
@@ -80,7 +82,6 @@
         padding-top: 50px !important;
       }
     }
-    /* SOLO colori/font TradingView, il resto è gestito da main.js */
     .app-title {
       font-size: 2.18em;
       font-weight: 900;
@@ -127,6 +128,133 @@
       vertical-align: middle;
       color: #fff;
     }
+    /* === GAME OVER ULTRA MODERNO + TIP === */
+    .game-over-card {
+      background: linear-gradient(122deg, #23283b 80%, #16213a 100%);
+      border-radius: 24px;
+      box-shadow: 0 12px 48px 0 rgba(33, 183, 255, 0.13), 0 2px 16px 0 #15172b22;
+      border: 1.5px solid #223050;
+      max-width: 350px;
+      margin: 3em auto 0 auto;
+      padding: 2.6em 1.7em 2.1em 1.7em;
+      text-align: center;
+      color: #e0e6ed;
+      font-family: 'Roboto', 'Source Sans 3', Arial, sans-serif;
+      transition: box-shadow 0.22s;
+      position: relative;
+    }
+    .go-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.23em;
+      color: #21b7ff;
+      font-weight: 700;
+      margin-bottom: 1.1em;
+      gap: 0.7em;
+    }
+    .go-status i {
+      font-size: 2em;
+      color: #ffd166;
+      filter: drop-shadow(0 2px 14px #ffd16677);
+    }
+    .go-title {
+      letter-spacing: 1.5px;
+      font-size: 1.1em;
+      font-weight: 900;
+    }
+    .go-value {
+      font-size: 2.6em;
+      font-weight: 900;
+      margin-bottom: 0.15em;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px #21b7ff19;
+    }
+    .go-value.profit { color: #1bd273; }
+    .go-value.loss   { color: #fa3737; }
+    .go-remark {
+      color: #b1bed7;
+      font-size: 1.13em;
+      font-weight: 600;
+      margin-bottom: 2.3em;
+      letter-spacing: 0.04em;
+    }
+    .go-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      margin-bottom: 2.5em;
+    }
+    .go-metrics div {
+      display: flex;
+      justify-content: space-between;
+      background: #212537;
+      border-radius: 11px;
+      padding: 0.72em 1.1em;
+      font-size: 1.08em;
+      font-weight: 600;
+      color: #e0e6ed;
+      margin-bottom: 0.1em;
+    }
+    .go-label {
+      color: #b1bed7;
+      font-weight: 600;
+    }
+    .go-pos {
+      color: #1bd273;
+      font-weight: 700;
+    }
+    .go-neg {
+      color: #fa3737;
+      font-weight: 700;
+    }
+    .go-btn {
+      margin-top: 1em;
+      padding: 1em 2.8em;
+      background: linear-gradient(90deg, #21b7ff 0%, #2962ff 100%);
+      color: #fff;
+      font-size: 1.22em;
+      font-weight: 900;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 2px 14px 0 rgba(41,98,255,0.13);
+      font-family: 'Roboto', 'Source Sans 3', Arial, sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.17s, transform 0.13s, box-shadow 0.12s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7em;
+    }
+    .go-btn:hover, .go-btn:focus {
+      background: linear-gradient(90deg, #2962ff 0%, #21b7ff 100%);
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 6px 24px 0 rgba(41,98,255,0.18);
+    }
+    .go-btn i {
+      font-size: 1.28em;
+      vertical-align: middle;
+      color: #fff;
+    }
+    .go-tip {
+      margin-top: 2em;
+      color: #b1bed7;
+      font-size: 1em;
+      font-style: italic;
+      opacity: 0.78;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      justify-content: center;
+    }
+    .go-tip i {
+      color: #ffc700;
+      font-size: 1.25em;
+    }
+    @media (max-width:500px){
+      .game-over-card { max-width: 97vw; padding: 1.5em 0.2em 1.1em 0.2em; }
+      .go-value { font-size: 2em; }
+    }
   </style>
 </head>
 <body>
@@ -161,7 +289,76 @@
       </div>
     </div>
     <div class="screen levels"></div>
+    <!-- GAME OVER CARD ULTRA MODERNA + TIP -->
+    <!-- Sostituisci i valori con quelli reali dal tuo JS -->
+    <!-- (Mostra questo DIV solo a fine gioco) -->
+    <div class="game-over-card" id="gameOverCard" style="display:none">
+      <div class="go-status">
+        <i class="ri-trophy-line"></i>
+        <span class="go-title">Sessione conclusa!</span>
+      </div>
+      <div class="go-value profit" id="goValue">+1.200&nbsp;€</div>
+      <div class="go-remark" id="goRemark">Profitto Finale</div>
+      <div class="go-metrics">
+        <div>
+          <span class="go-label">Trade Migliore</span>
+          <span class="go-pos" id="bestTrade">+290&nbsp;€</span>
+        </div>
+        <div>
+          <span class="go-label">Trade Peggiore</span>
+          <span class="go-neg" id="worstTrade">-180&nbsp;€</span>
+        </div>
+        <div>
+          <span class="go-label">Totale Operazioni</span>
+          <span id="totalOps">14</span>
+        </div>
+        <div>
+          <span class="go-label">Accuratezza</span>
+          <span id="accuracy">71%</span>
+        </div>
+      </div>
+      <button class="go-btn" onclick="window.location.reload()">
+        <i class="ri-restart-line"></i>
+        Gioca Ancora
+      </button>
+      <div class="go-tip" id="goTip">
+        <i class="ri-lightbulb-flash-line"></i>
+        <span>Tip: Non inseguire il mercato, segui il tuo piano!</span>
+      </div>
+    </div>
   </div>
   <script src="main.js"></script>
+  <script>
+    // ESEMPIO: mostra game over card dinamicamente (puoi chiamare questa funzione dal tuo main.js a fine partita)
+    function showGameOverCard(data) {
+      // data = { profit: ..., best: ..., worst: ..., ops: ..., acc: ... }
+      document.getElementById('goValue').innerHTML = (data.profit >= 0 ? '+' : '') + data.profit + '&nbsp;€';
+      document.getElementById('goValue').className = 'go-value ' + (data.profit >= 0 ? 'profit' : 'loss');
+      document.getElementById('goRemark').innerText = data.profit >= 0 ? 'Profitto Finale' : 'Perdita Finale';
+      document.getElementById('bestTrade').innerHTML = (data.best >= 0 ? '+' : '') + data.best + '&nbsp;€';
+      document.getElementById('bestTrade').className = 'go-pos' + (data.best >= 0 ? '' : ' go-neg');
+      document.getElementById('worstTrade').innerHTML = (data.worst >= 0 ? '+' : '') + data.worst + '&nbsp;€';
+      document.getElementById('worstTrade').className = 'go-neg' + (data.worst >= 0 ? ' go-pos' : '');
+      document.getElementById('totalOps').innerText = data.ops;
+      document.getElementById('accuracy').innerText = data.acc + '%';
+      // Tip random
+      var tips = [
+        'Non inseguire il mercato, segui il tuo piano!',
+        'Analizza sempre le tue operazioni, anche quelle negative!',
+        'Ricorda: gestire il rischio è più importante del profitto.',
+        'Sii paziente: la disciplina batte l’impulso.',
+        'Il successo arriva nel lungo periodo, non in una sola sessione.',
+        'Non farti influenzare dalle emozioni, ma dai dati!',
+        'Meglio pochi trade buoni che tanti impulsivi.',
+        'Anche i migliori fanno errori: impara da ogni sessione.',
+        'Ogni stop loss è una lezione preziosa!'
+      ];
+      document.getElementById('goTip').querySelector('span').innerText = 'Tip: ' + tips[Math.floor(Math.random()*tips.length)];
+      document.getElementById('gameOverCard').style.display = '';
+    }
+
+    // Per vedere un esempio, puoi chiamare questa funzione da console:
+    // showGameOverCard({profit:1200, best:290, worst:-180, ops:14, acc:71});
+  </script>
 </body>
 </html>

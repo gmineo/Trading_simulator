@@ -419,8 +419,7 @@ body.playing * {
 .histogram .annotation text {
   text-anchor: middle; }
 
-g.histogram.trades .x.axis {
-  display: none; }
+
 g.histogram.trades text {
   display: none; }
 
