@@ -606,23 +606,85 @@ g.histogram.trades text {
   }
 }
 
-/* Migliora l’accessibilità su schermi piccolissimi */
-@media (max-width: 400px) {
+/* TOOLBAR MOBILE - SEMPRE VISIBILE */
+@media (max-width: 650px) {
   .levels > div .toolbar {
-    height: 44px;
-    padding: 0 0.3em;
+    position: fixed !important;
+    top: 48px; /* altezza barra logo */
+    left: 0;
+    width: 100vw;
+    min-width: 0;
+    height: 52px;
+    z-index: 3001 !important; /* molto sopra tutto il resto */
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, #5bc0ff, #0066cc);
+    border-bottom: 1.5px solid #253357;
+    padding: 0 0.6em;
+    box-sizing: border-box;
   }
+  /* Timer */
   .levels > div .toolbar .time {
-    font-size: 1.12em;
-    padding: 3px 8px;
+    font-size: 1.35em;
+    font-weight: 900;
+    color: #fff;
+    background: #0066cc99;
+    padding: 7px 18px;
+    border-radius: 12px;
+    order: 2;
+    margin: 0 0 0 10px;
+    min-width: 74px;
+    text-align: center;
   }
+  /* Bottone Next */
   .levels > div .toolbar button.next {
-    font-size: 1em;
-    height: 36px;
-    min-width: 72px;
-    padding: 0.4em 0.6em;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 40px;
+    min-width: 85px;
+    padding: 0.3em 1.1em;
+    border-radius: 10px;
+    margin: 0 0 0 0.7em;
+    float: none;
+    order: 3;
+    box-shadow: 0 2px 8px rgba(41,98,255,0.13);
+    z-index: 3100;
+    background: linear-gradient(90deg, #5bc0ff 0%, #0072ff 100%);
+    color: #fff;
+    border: none;
   }
+  /* Saldo/cash e altri elementi */
+  .levels > div .toolbar > div,
+  .levels > div .toolbar > span {
+    font-size: 1em;
+    margin: 0 0.2em;
+    order: 1;
+  }
+  /* Spazio per toolbar fissa */
   .levels, .game-container {
-    padding-top: 88px !important;
+    padding-top: 105px !important;
   }
 }
+/* Riduci padding su smartphone piccoli */
+@media (max-width: 820px) {
+  .levels > div .toolbar {
+    height: 43px;
+    padding: 0 0.22em;
+  }
+  .levels > div .toolbar .time {
+    font-size: 1.01em;
+    padding: 4px 7px;
+    min-width: 54px;
+  }
+  .levels > div .toolbar button.next {
+    font-size: 0.97em;
+    height: 33px;
+    min-width: 60px;
+    padding: 0.1em 0.4em;
+  }
+  .levels, .game-container {
+    padding-top: 86px !important;
+  }
+}
+
