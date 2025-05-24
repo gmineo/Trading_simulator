@@ -1,3 +1,162 @@
+
+    :root {
+      --tv-bg: #131722;
+      --tv-bg-light: #23283b;
+      --tv-accent: #2962ff;
+      --tv-accent2: #21b7ff;
+      --tv-green: #1bd273;
+      --tv-red: #fa3737;
+      --tv-yellow: #ffc700;
+      --tv-txt-main: #e0e6ed;
+      --tv-txt-sec: #b1bed7;
+      --tv-border: #253357;
+      --tv-radius: 20px;
+      --tv-font: 'Roboto', 'Source Sans 3', Arial, sans-serif;
+    }
+    html, body {
+      background: var(--tv-bg) !important;
+      font-family: var(--tv-font) !important;
+      color: var(--tv-txt-main);
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+   
+@media (max-width: 600px) {
+  .top-header-bar {
+    font-size: 1em;
+    padding-left: 8px;
+  }
+}
+.top-header-bar.hide { opacity: 0; pointer-events: none; }
+    
+    @media (max-width: 900px) {
+      .game-container, .screen.levels {
+        padding-top: 58px !important;
+        box-sizing: border-box;
+      }
+    }
+    @media (max-width:600px){
+      .top-header-bar {
+        font-size: 0.96em;
+        padding: 0.7em 0 0.7em 0;
+      }
+      .game-container, .screen.levels {
+        padding-top: 50px !important;
+      }
+    }
+    .app-title {
+      font-size: 2.18em;
+      font-weight: 900;
+      color: var(--tv-accent2);
+      letter-spacing: 1.2px;
+      margin-bottom: 0.3em;
+      margin-top: 0.5em;
+      font-family: var(--tv-font);
+      text-align: center;
+    }
+
+  
+
+
+
+
+.top-header-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #18264a;
+  color: #fff;
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 8px 0 8px 12px;
+  box-shadow: 0 2px 12px rgba(10,30,70,0.11);
+  display: flex;
+  align-items: center;
+  transition: opacity 0.4s, box-shadow 0.3s;
+}
+.top-header-bar.hide {
+  opacity: 0;
+  pointer-events: none;
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .top-header-bar {
+    font-size: 1em;
+    padding-left: 8px;
+  }
+}
+
+.play-btn {
+  background: linear-gradient(90deg, #1976d2 70%, #3fa4f8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  font-size: 1.3em;
+  padding: 13px 58px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 18px 0 #b9d9f7;
+  transition: background 0.25s, transform 0.1s, box-shadow 0.18s;
+  outline: none;
+}
+.play-btn:hover, .play-btn:focus {
+  background: linear-gradient(90deg, #135ea5 70%, #2291e6 100%);
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 8px 24px 0 #b9d9f7;
+}
+
+.game-over-card {
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 4px 24px 0 #b9d9f7;
+  padding: 36px 24px 22px 24px;
+  margin: 30px auto 0 auto;
+  max-width: 420px;
+  animation: fadeIn 0.5s;
+}
+.go-btn {
+  margin-top: 22px;
+  background: linear-gradient(90deg, #33b9ff 50%, #1976d2 100%);
+  color: #00334d;
+  border: none;
+  border-radius: 99px;
+  padding: 14px 64px;
+  font-size: 1.15em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #b9d9f7;
+  transition: background 0.2s;
+}
+.go-btn:hover, .go-btn:focus {
+  background: linear-gradient(90deg, #2291e6 50%, #135ea5 100%);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .intro-card, .game-over-card {
+    padding: 14px 4px 8px 4px;
+    font-size: 1em;
+    max-width: 99vw;
+    border-radius: 14px;
+  }
+  .go-btn { padding: 12px 2vw; font-size: 1em; }
+  .toolbar, .top-header-bar { font-size: 1em; }
+}
+
+.instructions li:hover {
+  color: #1976d2;
+  background: #f0f6ff;
+  border-radius: 8px;
+}
+
+
+
+
+
 @font-face {
   font-family: 'Publico Text Mono Web Bold';
   src: url("../fonts/PublicoTextMono-BoldItalic-Web.eot");
@@ -358,17 +517,17 @@ body {
         padding: 0 3px 5px 3px;
       }
     }
-.game-over {
+.game-over-card {
   font-size: 2em;
   padding: 4em;
   text-align: center; }
-  .game-over h2 {
+  .game-over-card h2 {
     font-size: 4em;
     margin-top: 1em; }
-  .game-over p {
+  .game-over-cardp {
     max-width: 16em;
     margin: 1em auto; }
-  .game-over canvas {
+  .game-over-card canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -712,7 +871,9 @@ g.histogram.trades text {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px 10px 12px;
+  padding: 0 3px 5px 3px;
+
+  /*padding: 0 12px 10px 12px;*/
   font-size: 1.08em;
   min-height: 36px;
   background: #18264a;
@@ -722,7 +883,7 @@ g.histogram.trades text {
   z-index: 30;
   border-bottom: 1px solid #2268a3;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .toolbar {
     padding: 0 3px 5px 3px;
     font-size: 1em;
@@ -731,4 +892,15 @@ g.histogram.trades text {
 }
 .hide {
   display: none !important;
+}
+
+@media (max-width: 600px) {
+  .intro-card, .game-over-card {
+    padding: 14px 4px 8px 4px;
+    font-size: 1em;
+    max-width: 99vw;
+    border-radius: 14px;
+  }
+  .go-btn { padding: 12px 2vw; font-size: 1em; }
+  .toolbar, .top-header-bar { font-size: 1em; }
 }
