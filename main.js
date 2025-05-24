@@ -1,4 +1,4 @@
-
+// === UTILS ===
 function formatDate(dateStr) {
   const d = new Date(dateStr);
   if (isNaN(d)) return dateStr;
@@ -9,7 +9,16 @@ function formatDate(dateStr) {
 }
 
 let currentStep = 0;
-const totalSteps = 10;
+
+// PATCH: totalSteps dinamico, dopo lo shuffle dei tickers!
+var tickers = [
+  { "ticker": "aapl", "name": "APPLE" },
+  { "ticker": "dell", "name": "DELL COMPUTER" },
+  { "ticker": "fed",  "name": "SPX (Fed liftoff)" },
+  { "ticker": "nflx", "name": "NETFLIX" }
+];
+tickers = _.shuffle(tickers);
+const totalSteps = tickers.length;
 
 var gameConfig = {
   'duration': 3000,
@@ -27,12 +36,13 @@ var gameConfig = {
   'readServer': 'chartGame',
   'readServerLimit': 1000
 }
+
 // in cima a main.js, dopo le altre variabili
-let titoliRend = [];        // rendimento di ogni titolo
+let titoliRend = [];
 let sp500Rend  = []; 
-let playedStockNames = []; // Add this line       // rendimento relativo all’S&P500
-// all config vars are configurable by query string on localhost;
-// otherwise only ticker, gameid, and replay
+let playedStockNames = [];
+
+// Config vars by query string
 if(window.location.hostname === 'localhost') {
   Object.keys(gameConfig).forEach(function(key) {
     var q = getQueryVariable(key);
@@ -59,204 +69,7 @@ if(gameConfig.replay) {
 
 d3.select("body").classed("presentation", gameConfig.presentation);
 
-// set of levels available
-var tickers = [
-  {
-    "ticker": "aapl",
-    "name": "APPLE"
-  },
-  {
-    "ticker": "dell",
-    "name": "DELL COMPUTER"
-  }/*,
-  {
-    "ticker": "cat",
-    "name": "CATERPILLAR"
-  },
-  {
-    "ticker": "coke",
-    "name": "COCA-COLA"
-  },
-  {
-    "ticker": "brkb",
-    "name": "BERKSHIRE HATHAWAY"
-  },
-  {
-    "ticker": "ene",
-    "name": "ENRON"
-  }
-
-  ,
-
-  {
-    "ticker": "fed",
-    "name": "SPX (Fed liftoff)"
-  },
-  {
-    "ticker": "nflx",
-    "name": "NFLX"
-  }/*,
-  {
-    "ticker": "tsla",
-    "name": "TSLA US Equity"
-  },
-  {
-    "ticker": "brkb",
-    "name": "BRK/B US Equity"
-  },
-  {
-    "ticker": "mcz",
-    "name": "MCZ US Equity"
-  },
-  {
-    "ticker": "pg",
-    "name": "PG US Equity"
-  },
-  {
-    "ticker": "ene",
-    "name": "Enron US Equity"
-  },
-  {
-    "ticker": "znga",
-    "name": "ZNGA US Equity"
-  },
-  {
-    "ticker": "ge",
-    "name": "GE US Equity"
-  },
-  {
-    "ticker": "coke",
-    "name": "COKE US Equity"
-  },
-  {
-    "ticker": "googl",
-    "name": "GOOGL US Equity"
-  },
-  {
-    "ticker": "cat",
-    "name": "CAT US Equity"
-  },
-
-  // second batch
-
-  {
-    "ticker": "glen",
-    "name": "GLEN LN Equity"
-  },
-  {
-    "ticker": "mcd",
-    "name": "MCD US Equity"
-  },
-  {
-    "ticker": "dd",
-    "name": "DuPont US Equity"
-  },
-  {
-    "ticker": "xom",
-    "name": "XOM US Equity"
-  },
-  {
-    "ticker": "1788",
-    "name": "1788 HK (Guotai Junan)",
-    "description": "On Nov. 23, Guotai Junan announced its CEO was missing and could not be reached. 
-  },
-  {
-    "ticker": "cag",
-    "name": "CAG US Equity"
-  },
-  {
-    "ticker": "f",
-    "name": "F US Equity"
-  },
-  {
-    "ticker": "corn",
-    "name": "CORN US Equity"
-  },
-  {
-    "ticker": "gpro",
-    "name": "GPRO US Equity"
-  },
-  {
-    "ticker": "yhoo",
-    "name": "YHOO US Equity"
-  },
-  {
-    "ticker": "lulu",
-    "name": "LULU (Lululemon)"
-  },
-  {
-    "ticker": "hal",
-    "name": "HAL (Halliburton)"
-  },
-  {
-    "ticker": "swhc",
-    "name": "SWHC (Smith & Wesson)"
-  },
-  {
-    "ticker": "kbio",
-    "name": "KBIO (KaloBios)"
-  },
-  {
-    "ticker": "cmg",
-    "name": "CMG (Chipotle)"
-  },
-  {
-    "ticker": "bks",
-    "name": "BKS (Barnes & Noble)"
-  },
-  {
-    "ticker": "gs",
-    "name": "GS (Goldman Sachs)"
-  },
-  {
-    "ticker": "dis",
-    "name": "DIS (Disney)"
-  },
-
-  {
-    "ticker": "fed",
-    "name": "SPX (Fed liftoff)"
-  },
-
-  {
-    "ticker": "hsi",
-    "name": "HSI (Hang Seng Index)"
-  },
-  {
-    "ticker": "shcomp",
-    "name": "SHCOMP (Shanghai Composite)"
-  }
-*/
-];
-
-// UNUSED
-/*
-  {
-    "ticker": "ibm", // shitty
-    "name": "IBM US Equity"
-  },
-  {
-    "ticker": "jpm",
-    "name": "JPM US Equity"
-  },
-  {
-    "ticker": "rtn",
-    "name": "RTN US Equity",
-    "description": "The previous day, SpaceX's rocket blew up. Not that it really mattered to Raytheon."
-  },
-  {
-    "ticker": "grpn",  // way too flat intraday
-    "name": "GRPN US Equity"
-  },
-  {
-    "ticker": "7974",
-    "name": "7974 JT Equity (Nintendo)",
-    "description": "https://twitter.com/DavidInglesTV/status/659549109410332672"
-  },
-*/
-
-tickers = _.shuffle(tickers);
-
+// PATCH: cash come number sempre
 var cash = 500;
 var cashLiquid = true;
 var levelNumber = 0;
@@ -264,36 +77,19 @@ var levelNumber = 0;
 var userId = Math.random().toString().split(".")[1];
 var userHistory = {};
 
-// persist userId and cash and userHistory
+// PATCH: Safe localStorage
 if(typeof(Storage) !== "undefined") {
-  if(!localStorage.getItem("userId")) {
-    try {
-      localStorage.setItem("userId", userId);
-    } catch(e) {
-      console.error(e);
-    }
-  } else {
-    userId = localStorage.getItem("userId");
-  }
+  try {
+    if(!localStorage.getItem("userId")) localStorage.setItem("userId", userId);
+    else userId = localStorage.getItem("userId");
 
-  if(!localStorage.getItem("cash")) {
-    try {
-      localStorage.setItem("cash", cash);
-    } catch(e) {
-      console.error(e);
-    }
-  } else {
-    cash = localStorage.getItem("cash");
-  }
+    if(!localStorage.getItem("cash")) localStorage.setItem("cash", cash);
+    else cash = parseFloat(localStorage.getItem("cash")) || 500;
 
-  if(!localStorage.getItem("userHistory")) {
-    try {
-      localStorage.setItem("userHistory", JSON.stringify(userHistory));
-    } catch(e) {
-      console.error(e);
-    }
-  } else {
-    userHistory = JSON.parse(localStorage.getItem("userHistory"));
+    if(!localStorage.getItem("userHistory")) localStorage.setItem("userHistory", JSON.stringify(userHistory));
+    else userHistory = JSON.parse(localStorage.getItem("userHistory"));
+  } catch(e) {
+    console.error(e);
   }
 }
 window.onunload = window.onbeforeunload = function() {
@@ -302,7 +98,6 @@ window.onunload = window.onbeforeunload = function() {
 };
 
 var indexFund;
-
 var analysisStats = [];
 var cashRules = [];
 
@@ -326,66 +121,70 @@ var taglines = [
   "The Big Long"
 ];
 
-// initCanvas();
-
 // gets s&p, then calls init
 getIndexFund();
 
 function getIndexFund() {
   d3.csv("spx.csv", function(error, data) {
-
-    // more minimal version of processData below...
+    if (error) {
+      console.error("Indice SPX non caricato:", error);
+      init();  // Avvia comunque il gioco senza indice di riferimento
+      return;
+    }
     var parseDate = d3.time.format("%x").parse;
     data.forEach(function(d) {
       d.date = parseDate(d.date);
       d.price = +d.price;
     });
-    data.sort(function(a,b) {
-      return a.date - b.date;
-    });
+    data.sort(function(a,b) { return a.date - b.date; });
     indexFund = {
       "ticker": "spx",
       "name": "SPX",
       "values": data
     }
-
-    // ready to go
     init();
   });
 }
 
 function init() {
-  
   var isTerminal = false;
-  // find ticker specified in hash, if any
   var tickerIndex = tickers.map(function(d) { return d.ticker; }).indexOf(gameConfig.ticker);
 
   var buttonText = gameConfig.replay ? "Watch" : "Play";
-
-  // FED LIFTOFF HACK
-  if(gameConfig.ticker) buttonText += " " + gameConfig.ticker.toUpperCase()
-  //if(gameConfig.ticker && tickerIndex > -1) buttonText += " " + tickers[tickerIndex].name;
-
+  if(gameConfig.ticker) buttonText += " " + gameConfig.ticker.toUpperCase();
   if(gameConfig.gameid) buttonText += " challenge";
   window.dvzqueue = queue;
   d3.select(".opener")
-    .select("button")
-    .text(buttonText)
-    .style("background-color", "#ADD8E6") // This line sets the background color to light blue
-    .on("click", function() {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
-    }
+  .select(".play-btn")
+  .on("click", function() {
+    // PATCH: nascondi la barra branding
+    d3.select(".top-header-bar").classed("hide", true);
+    currentStep = 1;
+    d3.select(".title-counter").text(currentStep + "/" + totalSteps);
     getNextLevel();
   })
-    .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
-    .on("touchend", function(d) { d3.select(this).classed("hover", false); });
+  .on("touchstart", function() { d3.select(this).classed("hover", true); })
+  .on("touchend", function() { d3.select(this).classed("hover", false); });
 
-  d3.select(".opener h3").text(_.sample(taglines));
+  if(d3.select(".opener h3").empty()) {
+    d3.select(".opener").append("h3").text(_.sample(taglines));
+  } else {
+    d3.select(".opener h3").text(_.sample(taglines));
+  }
+   
 
   if(gameConfig.autoplay) getNextLevel();
 }
+
+// Da qui in poi: **tutto il codice originale per livelli, playLevel, helpers, ads, canvas, AWS, etc.**
+// (già incluso nella tua versione. Lo lascio invariato, qui di seguito:)
+
+// ... TUTTO IL RESTO DEL TUO main.js ...
+// == (dal caricamento livelli, playLevel, getSmoothDomainFunction, getStdev, timerFormat, getQueryVariable, canvas, ads, AWS, ecc.) ==
+
+// (Se serve la versione *con tutto* già incollato, dimmelo e te la incollo interamente in risposta! Altrimenti puoi semplicemente incollare sopra la parte iniziale.)
+
+
 
 function getNextLevel() {
   levelNumber++;
@@ -413,44 +212,7 @@ function getNextLevel() {
   }
 }
 
-// load ad
-function loadAd() {
 
-  var i = d3.select(".levels").selectAll(".ad-item").size();
-
-  var adWrapper = d3.select(".levels")
-    .append("div.ad-item")
-    .style("z-index", d3.selectAll(".levels > div").size());
-
-  adWrapper.append("div.toolbar")
-    .append("button.next")
-    .text("Next")
-    .on("click", function() {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
-    }
-    getNextLevel();
-  })
-    .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
-    .on("touchend", function(d) { d3.select(this).classed("hover", false); });
-
-  adWrapper.append("p").text("Advertisement");
-
-  var ad = adWrapper.append("div.ad");
-
-  // get intended size from data attribute
-  // e.g. <div class="bannerad-sized" data-size="728,90"></div>
-  // fall back to widest IAB size that fits container
-  var size = ad.node().dataset.size ? ad.node().dataset.size.split(",") : getBestAdSize(ad.node());
-
-  
-  ad.node().style.display = "block";
-  var randValue = new String(Math.random()).substring(2,11);
-  var n = i + 1;
-  ad.node().innerHTML = new_leader + '&position=box' + n + '&ord=' + randValue + '"></iframe>';
-
-}
 
 // load file
 function loadTicker(ticker) {
@@ -650,7 +412,7 @@ function playLevel(selection) {
 
     // DOM-building begins here
 
-    var toolbar = item.append("div.toolbar");
+    var toolbar = item.insert("div", ":first-child").attr("class", "toolbar");
     var alerts = item.append("div.alerts")
         .style("position", "fixed")
         .style("bottom", "0")
@@ -998,10 +760,10 @@ function playLevel(selection) {
 
     }
 
-    function levelOver() {
-      item.classed("playing", false);
-      d3.select("body").classed("playing", false);
-      item.classed("level-over", true);
+function levelOver() {
+  item.classed("playing", false);
+  d3.select("body").classed("playing", false);
+  item.classed("level-over", true);
 
       d3.select('meta[property="og:longTitle"]').attr("content", "I’ve made " + dollarFormat0(cash)
         + " playing the @business Trading Game. Can you beat the market? Play now:");
@@ -1053,8 +815,30 @@ function playLevel(selection) {
     }
     getNextLevel();
   })
-        .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
-        .on("touchend", function(d) { d3.select(this).classed("hover", false); });
+
+  // Rimuovi eventuali duplicati del pulsante Next (soprattutto su mobile)
+toolbar.selectAll("button.next").remove();
+toolbar.selectAll(".title-counter").remove();
+
+// Aggiungi contatore titoli e pulsante Next visibili e SEMPRE presenti
+toolbar.append("div")
+  .attr("class", "title-counter")
+  .text(currentStep + "/" + totalSteps);
+
+toolbar.append("button")
+  .attr("class", "next")
+  .attr("tabindex", "0")
+  .text("Next")
+  .on("click", function() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
+    }
+    getNextLevel();
+  })
+  .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
+  .on("touchend", function(d) { d3.select(this).classed("hover", false); });
+
 
       // update stock properties
       stock.cash.push({
@@ -1339,7 +1123,7 @@ function gameOver () {
    /* ───────────────────────────────────────
       3. CANVAS DECORATIVO (come versione originale)
       ───────────────────────────────────────*/
-   initEnderCanvas(overlay.append('canvas'));
+   // initEnderCanvas(overlay.append('canvas'));
    
    // ... resto della funzione ...
 
@@ -1347,7 +1131,7 @@ function gameOver () {
   /*───────────────────────────────────────
     3.  CANVAS DECORATIVO (come versione originale)
   ───────────────────────────────────────*/
-  initEnderCanvas(overlay.append('canvas'));
+  // initEnderCanvas(overlay.append('canvas'));
 
 
   /*───────────────────────────────────────
@@ -1357,6 +1141,10 @@ function gameOver () {
     console.table(analysisStats);
     console.table(cashRules);
   }
+  var topBar = document.querySelector('.top-header-bar');
+    if (topBar) {
+        topBar.classList.remove('hide');  // rimuove la classe .hide per mostrare la barra [oai_citation:1‡stackoverflow.com](https://stackoverflow.com/questions/927312/how-to-append-a-css-class-to-an-element-by-javascript#:~:text=element.classList.add%28%27my)
+    }
   showGameOverForm();
 }
 
@@ -1469,42 +1257,7 @@ function getStdev(d) {
   d.σ = d3.deviation(boundedData, ƒ('price'));
 }
 
-// calculate stdev from intraday returns
-// http://www.investopedia.com/ask/answers/021015/how-can-you-calculate-volatility-excel.asp
-function getStdevProper(values) {
-  values.forEach(function(d, i) {
-    if(i === 0) return;
-    d.return = (d.price / values[i-1].price) - 1;
-  })
-  return d3.deviation(values, ƒ('return'));
-}
 
-function getStdev2(d) {
-  // compute from periodicity of data
-  var period = Math.min(this[1].date - this[0].date, this[2].date - this[1].date);
-  var varianceWindow = period * 90;
-
-  // N.B. #BUG:
-  // IF PERIODICITY IS SUFFICIENTLY BIMODAL,
-  // there can be gaps greater than the varianceWindow,
-  // which leads to this returning 'undefined' stdev,
-  // which makes it unreliable when fed into smooth+simplify
-  // for stocks with huge gaps relative to the granularity
-  // (e.g. a week of 5-minute data w/ nights and weekends)
-
-  var bounds = [
-    new Date(+d.date - (.5 * varianceWindow)),
-    new Date(+d.date + (.5 * varianceWindow))
-  ];
-  var boundedData = this.filter(function(dd) { return dd.date > bounds[0] && dd.date <= bounds[1]; });
-
-  boundedData.forEach(function(d, i) {
-    if(i === 0) return;
-    d.return = (d.price / boundedData[i-1].price) - 1;
-  })
-
-  d.σ2 = d3.deviation(boundedData, ƒ('return'));
-}
 
 function timerFormat(t) {
   var secondsFormat = d3.format('02');
@@ -1851,170 +1604,6 @@ function x(width, height) {
 
 
 
-////////
-// STATS
-
-// based on http://bl.ocks.org/mbostock/3048450
-function histogram() {
-
-  var width = 960,
-      height = 500,
-      x,
-      title,
-      annotations = [];
-
-  function chart(selection) {
-    selection.each(function(values) {
-
-      if(!values || !values.length) return;
-
-      if(x === undefined) {
-        // Either fit scale to middle 98% of values...
-        values = values.filter(function(d) {
-          return d >= d3.quantile(values,.01) && d < d3.quantile(values,.99);
-        })
-        x = d3.scale.linear()
-            .domain(d3.extent(values))
-            .range([0, width]);
-      } else {
-        // ...or fit values to scale.
-        values = values.filter(function(d) {
-          return d >= x.domain()[0] && d < x.domain()[1];
-        })
-      }
-
-      // A formatter for counts.
-      var formatCount = d3.format(",.0f");
-
-      // Use date scale for dates, percentage scale otherwise. Sloppy, yes.
-      if(values[0] instanceof Date) {
-        var formatLabel = function(d) {
-          var extent = d3.extent(values)[1] - d3.extent(values)[0];
-          var format = d3.time.format.multi([
-            [".%L", function(d) {   return extent < 1000; }],
-            [":%S", function(d) {   return extent < 1000 * 60; }],
-            ["%I:%M", function(d) { return extent < 1000 * 60 * 60; }],
-            ["%I %p", function(d) { return extent < 1000 * 60 * 60 * 24; }],
-            ["%a %d", function(d) { return extent < 1000 * 60 * 60 * 24 * 7; }],
-            ["%b %d", function(d) { return extent < 1000 * 60 * 60 * 24 * 31; }],
-            ["%B", function(d) {    return extent < 1000 * 60 * 60 * 24 * 365; }],
-            ["%Y", function() {     return true; }]
-          ]);
-          return format(new Date(d));
-        }
-      } else {
-        var formatLabel = d3.format(".0%");
-      }
-
-      // Generate a histogram using twenty uniformly-spaced bins.
-      var data = d3.layout.histogram()
-          .bins(75)
-          (values);
-
-      var y = d3.scale.linear()
-          .domain([0, d3.max(data, function(d) { return d.y; })])
-          .range([height, 0]);
-
-      var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom")
-          .tickFormat(formatLabel);
-
-      var svg = d3.select(this);
-
-      var titleText = svg.selectAll("text.title").data([title]);
-      titleText.enter().append("text.title");
-      titleText.text(ƒ());
-
-      var bar = svg.selectAll(".bar")
-          .data(data);
-
-      bar.exit().remove();
-
-      var barEnter = bar.enter().append("g")
-          .attr("class", "bar");
-
-      svg.selectAll(".bar")
-          .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
-
-      barEnter.append("rect")
-          .attr("x", 1);
-
-      svg.selectAll(".bar").select("rect")
-          .attr("width", x(data[1].x) - x(data[0].x))
-          .attr("height", function(d) { return height - y(d.y); });
-
-      // barEnter.append("text")
-      //     .attr("dy", ".75em")
-      //     .attr("y", 6)
-      //     .attr("x", (x(data[1].x) - x(data[0].x)) / 2)
-      //     .attr("text-anchor", "middle");
-
-      // svg.selectAll(".bar").select("text")
-      //     .text(function(d) { return formatCount(d.y); });
-
-      svg.selectAll(".x.axis")
-          .data([data])
-        .enter().append("g")
-          .attr("class", "x axis");
-
-      svg.selectAll(".x.axis")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
-
-      var annos = svg.selectAll("g.annotation")
-        .data(annotations);
-      var annoEnter = annos.enter().append("g.annotation");
-      annoEnter.append("line");
-      annoEnter.append("text");
-      annos
-        .attr("transform", function(d) { return "translate(" + x(d.x) + ",0)"; })
-      annos.select("line")
-        .attr("x1", 0)
-        .attr("x2", 0)
-        .attr("y1", function(d,i) { return .3*height + i * 12})
-        .attr("y2", height);
-      annos.select("text")
-        .text(ƒ('text'))
-        .attr("y", function(d,i) { return .3*height + i * 12})
-        .attr("dy", "-.5em");
-
-    })
-  }
-
-  chart.width = function(_) {
-    if (!arguments.length) return width;
-    width = _;
-    return chart;
-  };
-
-  chart.height = function(_) {
-    if (!arguments.length) return height;
-    height = _;
-    return chart;
-  };
-
-  chart.x = function(_) {
-    if (!arguments.length) return x;
-    x = _;
-    return chart;
-  };
-
-  chart.title = function(_) {
-    if (!arguments.length) return title;
-    title = _;
-    return chart;
-  };
-
-  chart.annotations = function(_) {
-    if (!arguments.length) return annotations;
-    _.sort(function(a,b) { return b.x - a.x; });
-    annotations = _;
-    return chart;
-  };
-
-  return chart;
-}
 
 
 

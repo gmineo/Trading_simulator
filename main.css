@@ -338,7 +338,26 @@ body {
     stroke: #ccc;
     stroke-width: .5px;
     transition: stroke 2s, stroke-width 2s; }
-
+    .chart-item .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #18264a;
+      color: #fff;
+      width: 100%;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px 8px 8px;
+    }
+    @media (max-width: 700px) {
+      .chart-item .toolbar {
+        min-height: 28px;
+        font-size: 1em;
+        padding: 0 3px 5px 3px;
+      }
+    }
 .game-over {
   font-size: 2em;
   padding: 4em;
@@ -550,7 +569,7 @@ g.histogram.trades text {
 /* === MOBILE FIRST ADATTAMENTI PER TOOLBAR === */
 @media (max-width: 600px) {
   .levels > div .toolbar {
-    position: fixed;
+    position: relative !important;
     top: 48px; /* altezza top-header-bar in mobile (circa) */
     left: 0;
     width: 100vw;
@@ -688,3 +707,28 @@ g.histogram.trades text {
   }
 }
 
+.toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 10px 12px;
+  font-size: 1.08em;
+  min-height: 36px;
+  background: #18264a;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid #2268a3;
+}
+@media (max-width: 700px) {
+  .toolbar {
+    padding: 0 3px 5px 3px;
+    font-size: 1em;
+    min-height: 28px;
+  }
+}
+.hide {
+  display: none !important;
+}
