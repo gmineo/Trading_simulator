@@ -14,14 +14,13 @@ let currentStep = 0;
 var tickers = [
   { "ticker": "aapl", "name": "APPLE" },
   { "ticker": "dell", "name": "DELL COMPUTER" },
-  { "ticker": "fed",  "name": "SPX (Fed liftoff)" },
-  { "ticker": "nflx", "name": "NETFLIX" }
+
 ];
 tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 30000,
+  'duration': 3000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -1058,93 +1057,73 @@ toolbar.append("button")
 /*  ─────  GAME‑OVER  ─────
     Mostra riepilogo rendimenti + pulsante “Gioca ancora”
 */
-function gameOver () {
+function gameOver() {
+  // Mostra la top-header-bar se era nascosta
+  d3.select('.top-header-bar').classed('hide', false);
 
-  /*‑‑ ri‑mostra l’header  ‑‑*/
-  d3.select('#full-header').classed('hidden', false);
+  // Rimuove eventuali card precedenti
+  d3.selectAll('.game-over-card').remove();
 
-  /*‑‑ overlay centrale ‑‑*/
+  // Crea la card game over centrata
   const overlay = d3.select('.levels')
     .append('div')
-    .attr('class', 'game-over')
-    .style('z-index', d3.selectAll('.levels > div').size());   // sopra a tutto
+    .attr('class', 'game-over-card')
+    .style('z-index', d3.selectAll('.levels > div').size());
 
-  const center = overlay.append('div').attr('class', 'center-middle');
+  // Titolo riepilogo piccolo e blu
+  overlay.append('div')
+    .attr('class', 'go-summary-title')
+    .text('Riepilogo rendimenti (%)');
 
-
-  /*───────────────────────────────────────
-    1.  RIEPILOGO DEI RENDIMENTI
-  ───────────────────────────────────────*/
+  // Lista scrollabile dei rendimenti per ogni titolo
+  const listWrapper = overlay.append('div')
+    .attr('class', 'go-summary-list');
 
   const fmt = d3.format('.1%');
+  titoliRend.forEach((r, i) => {
+    listWrapper.append('div')
+      .attr('class', 'go-summary-row')
+      .html(
+        `<span class="go-summary-label">${playedStockNames[i]}</span>
+         <span class="go-summary-value">${fmt(r)}</span>`
+      );
+  });
 
-
-
-  const righe = titoliRend.map((r, i) =>
-    //`Titolo ${i + 1} tuo rendimento: ${fmt(r)}`);  // ← ora r è un numero
-    
-    `Titolo ${playedStockNames[i]} - tuo rendimento: ${fmt(r)}`);  
-  const mediaTitoli = d3.mean(titoliRend);    // funziona perché sono numeri
+  // Medie in fondo
+  const mediaTitoli = d3.mean(titoliRend);
   const mediaSp500  = d3.mean(sp500Rend);
 
-  righe.push(`Media tuo rendimento titoli: ${fmt(mediaTitoli)}`);
-  righe.push(`Media rendimento S&P500: ${fmt(mediaSp500)}`);
+  listWrapper.append('div')
+    .attr('class', 'go-summary-row go-summary-row-total')
+    .html(`<span class="go-summary-label">Media tuo rendimento titoli</span>
+           <span class="go-summary-value">${fmt(mediaTitoli)}</span>`);
 
-  
+  listWrapper.append('div')
+    .attr('class', 'go-summary-row go-summary-row-total')
+    .html(`<span class="go-summary-label">Media rendimento S&amp;P500</span>
+           <span class="go-summary-value">${fmt(mediaSp500)}</span>`);
 
-  /*‑‑ paragrafo riepilogo ‑‑*/
-  center.append('div')
-    .html(righe.join('<br>'))
-    .style('font-size', '1.3em')
-    .style('margin-bottom', '10px')
-    .style('max-width', '90vw')
-    .style('text-align', 'left');
+  // Pulsante ancorato in basso sempre visibile
+  overlay.append('button')
+    .attr('class', 'go-btn')
+    .text('Gioca ancora')
+    .on('click', () => {
+      cash = 500;
+      localStorage.removeItem("cash");
+      window.location.href = 'contact.html';
+    });
 
+  // Tip motivazionale in basso
+  overlay.append('div')
+    .attr('class', 'go-tip')
+    .html('💡 Ogni partita è un’opportunità per imparare!');
 
-/* ───────────────────────────────────────
-   2. TITOLONE + PULSANTE “GIOCA ANCORA”
-   ───────────────────────────────────────*/
-
-   center.append('h2').text('GAME OVER');
-
-   center.append('button')
-     .style('background', '#5bc0ff') // azzurro
-     .style('color', '#00334d')     // testo blu scuro (contrasto)
-     .text('Gioca ancora')
-     // .on('click', () => location.reload()); // RIGA ORIGINALE
-     .on('click', () => {                     // <<< INIZIO MODIFICA
-       cash = 500;                          // Resetta variabile
-       localStorage.removeItem("cash");     // Rimuovi da localStorage
-       // localStorage.setItem("cash", "500"); // Alternativa: Imposta a 500
-       // location.reload();    
-       window.location.href = 'contact.html';                // Ricarica pagina
-     });                                      // <<< FINE MODIFICA
-   
-   /* ───────────────────────────────────────
-      3. CANVAS DECORATIVO (come versione originale)
-      ───────────────────────────────────────*/
-   // initEnderCanvas(overlay.append('canvas'));
-   
-   // ... resto della funzione ...
-
-
-  /*───────────────────────────────────────
-    3.  CANVAS DECORATIVO (come versione originale)
-  ───────────────────────────────────────*/
-  // initEnderCanvas(overlay.append('canvas'));
-
-
-  /*───────────────────────────────────────
-    4.  LOG DI DEBUG (se abilitato)
-  ───────────────────────────────────────*/
+  // Debug
   if (gameConfig.logging) {
     console.table(analysisStats);
     console.table(cashRules);
   }
-  var topBar = document.querySelector('.top-header-bar');
-    if (topBar) {
-        topBar.classList.remove('hide');  // rimuove la classe .hide per mostrare la barra [oai_citation:1‡stackoverflow.com](https://stackoverflow.com/questions/927312/how-to-append-a-css-class-to-an-element-by-javascript#:~:text=element.classList.add%28%27my)
-    }
+
   showGameOverForm();
 }
 

@@ -56,31 +56,46 @@
     <!-- GAME OVER CARD ULTRA MODERNA + TIP -->
     <!-- Sostituisci i valori con quelli reali dal tuo JS -->
     <!-- (Mostra questo DIV solo a fine gioco) -->
-    <div class="game-over-card" id="gameOverCard" style="display:none">
-      <div class="go-status">
-        <i class="ri-trophy-line"></i>
-        <span class="go-title">Sessione conclusa!</span>
-      </div>
-      <div class="go-value profit" id="goValue">+1.200&nbsp;€</div>
-      <div class="go-remark" id="goRemark">Profitto Finale</div>
-      <div class="go-metrics">
-        <div>
-          <span class="go-label">Trade Migliore</span>
-          <span class="go-pos" id="bestTrade">+290&nbsp;€</span>
-        </div>
-        <div>
-          <span class="go-label">Trade Peggiore</span>
-          <span class="go-neg" id="worstTrade">-180&nbsp;€</span>
-        </div>
-        <div>
-          <span class="go-label">Totale Operazioni</span>
-          <span id="totalOps">14</span>
-        </div>
-        <div>
-          <span class="go-label">Accuratezza</span>
-          <span id="accuracy">71%</span>
-        </div>
-      </div>
+    
+<div class="game-over-card">
+  <!-- Titolo e stato finale -->
+  <h2 class="go-title">Game Over</h2>
+  <div class="go-status positive">Profitto</div>
+  
+  <!-- Elenco metriche di performance -->
+  <div class="go-metrics">
+    <div class="go-metric">
+      <span class="go-label">Profitto totale:</span>
+      <span class="go-value positive">+€5.000</span>
+    </div>
+    <div class="go-metric">
+      <span class="go-label">Miglior trade:</span>
+      <span class="go-value positive">+€1.200</span>
+    </div>
+    <div class="go-metric">
+      <span class="go-label">Peggior trade:</span>
+      <span class="go-value negative">-€300</span>
+    </div>
+    <div class="go-metric">
+      <span class="go-label">Operazioni totali:</span>
+      <span class="go-value">45</span>
+    </div>
+    <div class="go-metric">
+      <span class="go-label">Accuratezza:</span>
+      <span class="go-value">78%</span>
+    </div>
+  </div>
+  
+  <!-- Pulsante di azione -->
+  <button class="go-btn">Gioca ancora</button>
+  
+  <!-- Tip/Messaggio motivazionale finale -->
+  <div class="go-tip">💡 Ogni partita è un’opportunità per imparare!</div>
+</div>
+
+
+
+
       <button class="go-btn" onclick="window.location.reload()">
         <i class="ri-restart-line"></i>
         Gioca Ancora
@@ -120,6 +135,7 @@
       document.getElementById('goTip').querySelector('span').innerText = 'Tip: ' + tips[Math.floor(Math.random()*tips.length)];
       document.getElementById('gameOverCard').style.display = '';
     }
+  
 
     // Per vedere un esempio, puoi chiamare questa funzione da console:
     // showGameOverCard({profit:1200, best:290, worst:-180, ops:14, acc:71});
