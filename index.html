@@ -13,12 +13,12 @@
   <!-- Icone TradingView -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
   <!-- d3.js e plugin -->
-  <script src="https://d3js.org/d3.v3.min.js"></script>
-  <script src="queue.v1.min.js"></script>
-  <script src="d3-jetpack.js"></script>
-  <script src="Smooth-0.1.7.js"></script>
-  <script src="simplify.js"></script>
-  <script src="lodash.underscore.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js" defer></script>
+  <script src="queue.v1.min.js" defer></script>
+  <script src="d3-jetpack.js" defer></script>
+  <script src="Smooth-0.1.7.js" defer></script>
+  <script src="simplify.js" defer></script>
+  <script src="lodash.underscore.min.js" defer></script>
   
 </head>
 <body>
@@ -57,54 +57,46 @@
     <!-- Sostituisci i valori con quelli reali dal tuo JS -->
     <!-- (Mostra questo DIV solo a fine gioco) -->
     
-<div class="game-over-card">
+<div class="game-over-card" id="gameOverCard" style="display:none;">
   <!-- Titolo e stato finale -->
   <h2 class="go-title">Game Over</h2>
-  <div class="go-status positive">Profitto</div>
+  <div class="go-status positive" id="goRemark">Profitto</div>
   
   <!-- Elenco metriche di performance -->
   <div class="go-metrics">
     <div class="go-metric">
       <span class="go-label">Profitto totale:</span>
-      <span class="go-value positive">+€5.000</span>
+      <span class="go-value" id="goValue">+€5.000</span>
     </div>
     <div class="go-metric">
       <span class="go-label">Miglior trade:</span>
-      <span class="go-value positive">+€1.200</span>
+      <span class="go-pos" id="bestTrade">+€1.200</span>
     </div>
     <div class="go-metric">
       <span class="go-label">Peggior trade:</span>
-      <span class="go-value negative">-€300</span>
+      <span class="go-neg" id="worstTrade">-€300</span>
     </div>
     <div class="go-metric">
       <span class="go-label">Operazioni totali:</span>
-      <span class="go-value">45</span>
+      <span class="go-value" id="totalOps">45</span>
     </div>
     <div class="go-metric">
       <span class="go-label">Accuratezza:</span>
-      <span class="go-value">78%</span>
+      <span class="go-value" id="accuracy">78%</span>
     </div>
   </div>
-  
   <!-- Pulsante di azione -->
-  <button class="go-btn">Gioca ancora</button>
-  
+  <button class="go-btn" onclick="window.location.reload()">
+    <i class="ri-restart-line"></i>
+    Gioca Ancora
+  </button>
+
   <!-- Tip/Messaggio motivazionale finale -->
-  <div class="go-tip">💡 Ogni partita è un’opportunità per imparare!</div>
+  <div class="go-tip" id="goTip">
+    <i class="ri-lightbulb-flash-line"></i>
+    <span>Tip: Non inseguire il mercato, segui il tuo piano!</span>
+  </div>
 </div>
-
-
-
-
-      <button class="go-btn" onclick="window.location.reload()">
-        <i class="ri-restart-line"></i>
-        Gioca Ancora
-      </button>
-      <div class="go-tip" id="goTip">
-        <i class="ri-lightbulb-flash-line"></i>
-        <span>Tip: Non inseguire il mercato, segui il tuo piano!</span>
-      </div>
-    </div>
   </div>
   <script src="main.js"></script>
   <script>
