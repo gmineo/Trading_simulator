@@ -20,7 +20,7 @@ tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 3000,
+  'duration': 30000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -1595,20 +1595,3 @@ function showStockName(stockName) {
     d3.select(".stock-name").text(stockName);
   }
 }
-
-// ... (tutto il resto del file rimane invariato)
-
-// Aggiungi questo blocco in fondo a main.js oppure subito dopo la definizione di initGame
-document.addEventListener("DOMContentLoaded", function() {
-  var playBtn = document.querySelector(".play-btn");
-  if (playBtn) {
-    playBtn.addEventListener("click", function() {
-      // Sostituisci 'initGame' con la funzione effettiva di start se ha un altro nome
-      if (typeof initGame === "function") {
-        initGame();
-      } else {
-        console.error("Funzione initGame() non trovata!");
-      }
-    });
-  }
-});
