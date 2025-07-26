@@ -798,42 +798,6 @@ function levelOver() {
         .attr("transform", "translate(" + (width + 3) + "," + y(latest.price) + ")")
         .style("opacity", 0);
 
-      // button to advance
-      toolbar.append("div").attr("class", "title-counter").text(currentStep + "/" + totalSteps);
-      toolbar.append("button.next")
-        .text("Next")
-        .on("click", function() {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
-    }
-    getNextLevel();
-  })
-
-  // Rimuovi eventuali duplicati del pulsante Next (soprattutto su mobile)
-toolbar.selectAll("button.next").remove();
-toolbar.selectAll(".title-counter").remove();
-
-// Aggiungi contatore titoli e pulsante Next visibili e SEMPRE presenti
-toolbar.append("div")
-  .attr("class", "title-counter")
-  .text(currentStep + "/" + totalSteps);
-
-toolbar.append("button")
-  .attr("class", "next")
-  .attr("tabindex", "0")
-  .text("Next")
-  .on("click", function() {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      d3.select(".title-counter").text(currentStep + "/" + totalSteps);
-    }
-    getNextLevel();
-  })
-  .on("touchstart", function(d) { d3.select(this).classed("hover", true); })
-  .on("touchend", function(d) { d3.select(this).classed("hover", false); });
-
-
       // update stock properties
       stock.cash.push({
         "date": d3.max(stock.values, ƒ('date')),
@@ -866,26 +830,41 @@ toolbar.append("button")
       // ─ adesso ─  (numeri puri)
       titoliRend.push(stock.traderReturn);   // 0.352
       sp500Rend.push(stock.indexReturn);     // -0.077
-      playedStockNames.push(stock.name); // Add this line
-      var alertText = `
-  <p>
-    <strong class="testo-ingrandito">
-      The stock was “${stock.name}” from ${formatDate(stock.spxStartDate)} to ${formatDate(stock.spxEndDate)}:
-    </strong>
-  </p>
-`+
+      playedStockNames.push(stock.name);
 
-        "<p>Your strategy return: <strong>" + percentFormat(stock.traderReturn) + "</strong></p>" +
-        "<p>Buy-&-Hold on this stock: <strong>" + percentFormat(stock.stockReturn) + "</strong></p>" +
-        "<p>Buy-&-Hold on the S&P 500: <strong>" + percentFormat(stock.indexReturn) + "</strong></p>"+
-        "<p>S&P&nbsp;500 iniziale (" + formatDate(stock.spxStartDate) + "): <strong>" + stock.spxStart.toFixed(2) + "</strong> – finale (" + formatDate(stock.spxEndDate) + "): <strong>" + stock.spxEnd.toFixed(2) + "</strong></p>";
-;
+      // --- NUOVA LOGICA PER LA CARD DI RIEPILOGO ---
+      
+      // 1. Prepara i dati per la nuova card
+      const cardData = {
+        stockName: stock.name,
+        startDate: formatDate(stock.spxStartDate),
+        endDate: formatDate(stock.spxEndDate),
+        strategyReturn: stock.traderReturn * 100, // Converti in percentuale
+        buyHoldReturn: stock.stockReturn * 100,   // Converti in percentuale
+        sp500Return: stock.indexReturn * 100,     // Converti in percentuale
+        sp500Start: stock.spxStart,
+        sp500End: stock.spxEnd
+      };
 
-        
-      addAlert(alertText, true);
+      // 2. Definisci l'azione da eseguire al click su "Continua"
+      const continueAction = () => {
+        if (currentStep < totalSteps) {
+          currentStep++;
+        }
+        // La funzione getNextLevel è già definita nel tuo codice
+        getNextLevel();
+      };
 
-// Commenta questo blocco per disabilitare il salvataggio
- /*
+      // 3. Mostra la nuova card di riepilogo
+      // Usiamo un piccolo timeout per far finire l'animazione del grafico
+      setTimeout(() => {
+        showStockRevealCard(cardData, continueAction);
+      }, 1200); // 1.2 secondi di ritardo
+
+      // --- FINE NUOVA LOGICA ---
+
+      // Commenta questo blocco per disabilitare il salvataggio
+      /*
       if(gameConfig.playable) {
         saveTrades(stock, function(err, key) {
 
@@ -1576,17 +1555,104 @@ function x(width, height) {
   return 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
 }
 
+/**
+ * Mostra il modal di rivelazione dello stock.
+ * @param {object} data - Dati dello stock.
+ * @param {function} [onContinue] - Funzione da eseguire quando si clicca "Continua".
+ */
+function showStockRevealCard(data, onContinue) {
+  // Rimuovi eventuali modal esistenti
+  const existingOverlay = document.getElementById('stockRevealOverlay');
+  const existingModal = document.getElementById('stockRevealModal');
+  if (existingOverlay) existingOverlay.remove();
+  if (existingModal) existingModal.remove();
+  
+  // Funzioni helper
+  const getColorClass = (value) => (value > 0 ? 'positive' : value < 0 ? 'negative' : 'neutral');
+  const formatPercent = (value) => `${value >= 0 ? '+' : ''}${value.toFixed(1)}%`;
+  
+  // Crea overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'stockRevealOverlay';
+  overlay.className = 'stock-reveal-overlay';
+  
+  // Crea modal
+  const modal = document.createElement('div');
+  modal.id = 'stockRevealModal';
+  modal.className = 'stock-reveal-modal';
+  
+  // Contenuto del modal
+  modal.innerHTML = `
+    <div class="stock-modal-header">
+      <h2 class="stock-modal-title">${data.stockName}</h2>
+      <p class="stock-modal-period">${data.startDate} → ${data.endDate}</p>
+    </div>
+    <div class="stock-modal-body">
+      <div class="performance-section">
+        <div class="perf-row strategy">
+          <span class="perf-label">La tua strategia:</span>
+          <span class="perf-value ${getColorClass(data.strategyReturn)}">${formatPercent(data.strategyReturn)}</span>
+        </div>
+        <div class="perf-row buyhold">
+          <span class="perf-label">Buy & Hold su questo stock:</span>
+          <span class="perf-value ${getColorClass(data.buyHoldReturn)}">${formatPercent(data.buyHoldReturn)}</span>
+        </div>
+        <div class="perf-row sp500">
+          <span class="perf-label">Buy & Hold su S&P 500:</span>
+          <span class="perf-value ${getColorClass(data.sp500Return)}">${formatPercent(data.sp500Return)}</span>
+        </div>
+      </div>
+      <div class="sp500-section">
+        <div class="sp500-header"><i class="ri-line-chart-line"></i> Dettagli S&P 500</div>
+        <div class="sp500-data">
+          <div class="sp500-item">
+            <span class="sp500-item-label">Valore iniziale:</span>
+            <span class="sp500-item-value">${data.sp500Start.toFixed(2)}</span>
+          </div>
+          <div class="sp500-item">
+            <span class="sp500-item-label">Valore finale:</span>
+            <span class="sp500-item-value">${data.sp500End.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stock-modal-footer">
+      <button id="modal-continue-btn" class="modal-continue-btn"><i class="ri-arrow-right-line"></i> Continua</button>
+    </div>
+  `;
+  
+  // Aggiungi al DOM
+  document.body.appendChild(overlay);
+  document.body.appendChild(modal);
+  
+  // Funzione per chiudere e continuare
+  const closeAndContinue = () => {
+    closeStockRevealCard();
+    if (typeof onContinue === 'function') {
+      onContinue();
+    }
+  };
 
+  // Aggiungi listener al pulsante
+  document.getElementById('modal-continue-btn').addEventListener('click', closeAndContinue);
+  
+  // Chiudi cliccando sull'overlay
+  overlay.addEventListener('click', closeAndContinue);
 
+  // Mostra con animazione
+  requestAnimationFrame(() => {
+    overlay.classList.add('visible');
+    modal.classList.add('visible');
+  });
+}
 
-
-
-function showStockName(stockName) {
-  if (d3.select(".stock-name").empty()) {
-    d3.select(".toolbar").append("div")
-      .attr("class", "stock-name")
-      .text(stockName);
-  } else {
-    d3.select(".stock-name").text(stockName);
-  }
+/**
+ * Chiude il modal di rivelazione dello stock.
+ */
+function closeStockRevealCard() {
+  const overlay = document.getElementById('stockRevealOverlay');
+  const modal = document.getElementById('stockRevealModal');
+  
+  if (overlay) overlay.remove();
+  if (modal) modal.remove();
 }

@@ -333,10 +333,7 @@ body {
   .opener canvas {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; }
+    left: 0; }
 
 .levels > div {
   position: absolute;
@@ -345,122 +342,106 @@ body {
   width: 100%;
   height: 100%;
   background: #111115; }
-  .levels > div div.alerts {
+
+.levels > div div.alerts {
+  pointer-events: none;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 600px;
-  width: 90%;
-  z-index: 9999;
-  pointer-events: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
 }
 
 .levels > div div.alerts div.alert {
-  max-width: 100%;
-  color: var(--tv-txt-main);
-  background: rgba(35, 40, 59, 0.95);
-  border: 2px solid var(--tv-accent2);
-  border-radius: var(--tv-radius);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--tv-bg-light);
+  border: 1px solid var(--tv-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   font-family: var(--tv-font);
-  font-size: 1.1em;
-  padding: 2em;
-  margin-bottom: 15px;
-  backdrop-filter: blur(15px);
-  animation: slideInUp 0.4s ease-out;
+  color: var(--tv-txt-main);
+  padding: 0;
   text-align: left;
-  position: relative;
+  overflow: hidden;
+  animation: modalFadeIn 0.3s ease-out;
+  width: 90%;
+  max-width: 500px;
+  margin-bottom: 0;
 }
 
 .levels > div div.alerts div.alert::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(41, 98, 255, 0.1), rgba(33, 183, 255, 0.05));
-  border-radius: inherit;
-  z-index: -1;
+  display: none;
 }
 
 .levels > div div.alerts div.alert p {
-  margin: 0.8em 0;
-  line-height: 1.5;
-  color: var(--tv-txt-main);
+  margin: 0;
+  padding: 16px 24px;
+  line-height: 1.6;
+  font-size: 1.1em;
+  border-bottom: 1px solid var(--tv-border);
+}
+
+.levels > div div.alerts div.alert p:first-of-type {
+  background: linear-gradient(135deg, var(--tv-accent), var(--tv-accent2));
+  color: white;
+  padding: 24px;
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  border-bottom: none;
+}
+
+.levels > div div.alerts div.alert p:last-of-type {
+  border-bottom: none;
 }
 
 .levels > div div.alerts div.alert strong {
-  color: var(--tv-accent2);
+  color: var(--tv-green);
   font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
 }
 
-.levels > div div.alerts div.alert .testo-ingrandito {
-  font-size: 1.3em;
-  color: var(--tv-accent);
-  display: block;
-  margin-bottom: 1.2em;
-  text-align: center;
-  font-weight: 700;
-}
-
-.levels > div div.alerts div.alert span.tweet {
-  color: var(--tv-accent);
-  font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.levels > div div.alerts div.alert.tweetable:hover {
-  background: rgba(35, 40, 59, 0.98);
-  border-color: var(--tv-accent);
-  cursor: pointer;
-  transform: translateY(-3px);
-  transition: all 0.3s ease;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7);
-}
-
-.levels > div div.alerts div.alert input {
-  display: block;
-  width: 100%;
-  background: var(--tv-bg);
-  border: 1px solid var(--tv-border);
+.levels > div div.alerts div.alert button {
+  background: linear-gradient(135deg, var(--tv-accent), var(--tv-accent2));
+  color: white;
+  border: none;
+  padding: 16px 40px;
   border-radius: 8px;
-  color: var(--tv-txt-main);
+  font-size: 1.1em;
+  font-weight: 600;
   font-family: var(--tv-font);
-  padding: 0.8em;
-  margin-top: 0.8em;
-  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(41, 98, 255, 0.3);
+  display: block;
+  width: calc(100% - 48px);
+  margin: 24px;
 }
 
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -40%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+.levels > div div.alerts div.alert button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
 }
 
-@media (max-width: 768px) {
-  .levels > div div.alerts {
-    width: 95%;
-    max-width: 95vw;
-  }
-  
-  .levels > div div.alerts div.alert {
-    font-size: 1em;
-    padding: 1.5em;
-  }
-  
-  .levels > div div.alerts div.alert .testo-ingrandito {
-    font-size: 1.2em;
-  }
+.levels > div div.alerts div.alert .testo-ingrandito,
+.levels > div div.alerts div.alert span.tweet,
+.levels > div div.alerts div.alert.tweetable:hover,
+.levels > div div.alerts div.alert input {
+  display: none;
 }
-  .levels > div div.toolbar {
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.levels > div div.toolbar {
     position: absolute;
     top: 0;
     left: 0;
@@ -1163,4 +1144,226 @@ g.histogram.trades text {
 
 .toast-content .performance {
   font-size: 14px;
+}
+
+/* === Stili per Stock Reveal Card === */
+.stock-reveal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 23, 34, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 2s ease-out;
+  pointer-events: none;
+}
+
+.stock-reveal-overlay.visible {
+  opacity: 0.3;
+  pointer-events: auto;
+}
+
+.stock-reveal-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 90%;
+  max-width: 500px;
+  background-color: var(--tv-bg-light);
+  border: 1px solid var(--tv-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  font-family: var(--tv-font);
+  color: var(--tv-txt-main);
+  opacity: 0;
+  transition: opacity 2s ease-out, transform 2s ease-out;
+  pointer-events: none;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.stock-reveal-modal.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.stock-modal-header {
+  background: linear-gradient(135deg, var(--tv-accent), var(--tv-accent2));
+  color: white;
+  padding: 24px;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+}
+
+.stock-modal-title {
+  font-size: 1.8em;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.stock-modal-period {
+  font-size: 1em;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.stock-modal-body { padding: 24px; }
+.performance-section { margin-bottom: 24px; }
+
+.perf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--tv-accent2);
+}
+
+.perf-row.strategy { border-left-color: var(--tv-accent2); }
+.perf-row.buyhold { border-left-color: var(--tv-green); }
+.perf-row.sp500 { border-left-color: var(--tv-yellow); }
+
+.perf-label {
+  font-size: 1em;
+  color: var(--tv-txt-sec);
+  font-weight: 500;
+}
+
+.perf-value {
+  font-size: 1.3em;
+  font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.perf-value.positive { color: var(--tv-green); }
+.perf-value.negative { color: var(--tv-red); }
+.perf-value.neutral { color: var(--tv-txt-main); }
+
+.sp500-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--tv-border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.sp500-header {
+  color: var(--tv-yellow);
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sp500-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sp500-item { text-align: center; }
+
+.sp500-item-label {
+  display: block;
+  color: var(--tv-txt-sec);
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+
+.sp500-item-value {
+  display: block;
+  color: var(--tv-txt-main);
+  font-weight: 600;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.stock-modal-footer {
+  padding: 0 24px 24px 24px;
+  text-align: center;
+}
+
+.modal-continue-btn {
+  background: linear-gradient(135deg, var(--tv-accent), var(--tv-accent2));
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: var(--tv-font);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(41, 98, 255, 0.3);
+}
+
+.modal-continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stock-reveal-modal {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .stock-modal-header {
+    padding: 20px 16px;
+  }
+  
+  .stock-modal-title {
+    font-size: 1.5em;
+  }
+  
+  .stock-modal-body {
+    padding: 20px 16px;
+  }
+  
+  .perf-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .perf-value {
+    align-self: flex-end;
+    font-size: 1.2em;
+  }
+  
+  .sp500-data {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-reveal-modal {
+    width: 98vw;
+    max-width: 98vw;
+    margin: 0;
+  }
+  
+  .stock-modal-header {
+    padding: 12px 16px;
+  }
+  
+  .stock-modal-body {
+    padding: 16px 12px;
+  }
+  
+  .stock-modal-footer {
+    padding: 0 12px 16px 12px;
+  }
 }

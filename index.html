@@ -19,13 +19,12 @@
   <script src="Smooth-0.1.7.js"></script>
   <script src="simplify.js"></script>
   <script src="lodash.underscore.min.js"></script>
-  
 </head>
 <body>
   <!-- TOP BAR BRANDING -->
   <div class="top-header-bar">
     <i class="ri-bar-chart-grouped-line"></i>
-    Trading Simulator By Gabriele Mineo v1.6
+    Trading Simulator By Gabriele Mineo v1.66
   </div>
   <div class="game-container">
     <div class="screen opener">
@@ -110,94 +109,5 @@
     </div>
   </div>
   <script src="main.js"></script>
-  <script>
-    // Mostra game over card dinamicamente (puoi chiamare questa funzione dal tuo main.js a fine partita)
-    function showGameOverCard(data) {
-      // data = { profit: ..., best: ..., worst: ..., ops: ..., acc: ... }
-      const gameOverCard = document.querySelector('.game-over-card');
-      const goStatus = gameOverCard.querySelector('.go-status');
-      const metrics = gameOverCard.querySelectorAll('.go-metric .go-value');
-      
-      // Aggiorna lo stato (profitto/perdita)
-      goStatus.textContent = data.profit >= 0 ? 'Profitto' : 'Perdita';
-      goStatus.className = 'go-status ' + (data.profit >= 0 ? 'positive' : 'negative');
-      
-      // Aggiorna le metriche
-      metrics[0].textContent = (data.profit >= 0 ? '+' : '') + '€' + Math.abs(data.profit);
-      metrics[0].className = 'go-value ' + (data.profit >= 0 ? 'positive' : 'negative');
-      
-      metrics[1].textContent = (data.best >= 0 ? '+' : '') + '€' + Math.abs(data.best);
-      metrics[1].className = 'go-value ' + (data.best >= 0 ? 'positive' : 'negative');
-      
-      metrics[2].textContent = (data.worst >= 0 ? '+' : '') + '€' + Math.abs(data.worst);
-      metrics[2].className = 'go-value ' + (data.worst >= 0 ? 'positive' : 'negative');
-      
-      metrics[3].textContent = data.ops;
-      metrics[4].textContent = data.acc + '%';
-      
-      // Tip random
-      var tips = [
-        'Non inseguire il mercato, segui il tuo piano!',
-        'Analizza sempre le tue operazioni, anche quelle negative!',
-        'Ricorda: gestire il rischio è più importante del profitto.',
-        'Sii paziente: la disciplina batte l\'impulso.',
-        'Il successo arriva nel lungo periodo, non in una sola sessione.',
-        'Non farti influenzare dalle emozioni, ma dai dati!',
-        'Meglio pochi trade buoni che tanti impulsivi.',
-        'Anche i migliori fanno errori: impara da ogni sessione.',
-        'Ogni stop loss è una lezione preziosa!'
-      ];
-      
-      gameOverCard.querySelector('.go-tip').textContent = '💡 ' + tips[Math.floor(Math.random()*tips.length)];
-      
-      // Mostra la card
-      gameOverCard.style.display = 'block';
-    }
-
-    // Per vedere un esempio, puoi chiamare questa funzione da console:
-    // showGameOverCard({profit:1200, best:290, worst:-180, ops:14, acc:71});
-
-    /**
-     * Mostra una notifica "toast" per svelare lo stock.
-     * @param {object} data - Dati della notifica.
-     * @param {string} data.stockName - Il nome reale dello stock (es. "Apple Inc.").
-     * @param {number} data.performance - Il P&L per questo stock.
-     */
-    function showStockRevealToast(data) {
-      const container = document.getElementById('toast-container');
-
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-
-      const isPositive = data.performance >= 0;
-      const iconClass = isPositive ? 'ri-arrow-up-circle-fill positive' : 'ri-arrow-down-circle-fill negative';
-      const sign = isPositive ? '+' : '';
-
-      toast.innerHTML = `
-        <i class="toast-icon ${iconClass}"></i>
-        <div class="toast-content">
-          <span class="stock-name">${data.stockName}</span>
-          <span class="performance">Performance: <strong>${sign}€${data.performance.toFixed(2)}</strong></span>
-        </div>
-      `;
-
-      container.appendChild(toast);
-
-      // Mostra il toast con animazione
-      requestAnimationFrame(() => {
-        toast.classList.add('show');
-      });
-
-      // Rimuovi il toast dopo 5 secondi
-      setTimeout(() => {
-        toast.classList.remove('show');
-        // Attendi la fine dell'animazione di uscita prima di rimuovere l'elemento
-        toast.addEventListener('transitionend', () => toast.remove());
-      }, 5000);
-    }
-  </script>
-
-  <!-- Contenitore per le notifiche "Toast" -->
-  <div id="toast-container"></div>
 </body>
 </html>
