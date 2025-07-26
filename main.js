@@ -20,7 +20,7 @@ tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 30000,
+  'duration': 3000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -107,17 +107,12 @@ var tips = [
 ];
 
 var taglines = [
-  "Buy Low Sell High",
-  "So You Think You Can Trade?",
-  "America’s Next Top Trader",
-  "Portrait of the Chartist as a Young Man",
-  "Get Rich Quick!",
-  "Terminal Professional Service Lite",
-  "Crushing Stock Saga",
-  "Flappy Stock",
-  "Uncharted 5",
-  "li’l charts",
-  "The Big Long"
+      "Buy Low Sell High",
+    "Are You Smarter Than a Trader?",
+
+    "Trade or Fade?",
+
+    "Who Wants to Be a Chartist?"
 ];
 
 // gets s&p, then calls init
@@ -415,12 +410,12 @@ function playLevel(selection) {
     var alerts = item.append("div.alerts")
         .style("position", "fixed")
         .style("bottom", "0")
-        .style("left", "0");;
+        .style("left", "0");
 
-    var timeLabel = toolbar.append("div.time").text(timerFormat(duration));
     var cashHolder = toolbar.append("div.cash");
     var cashLabel = cashHolder.append("span.net").text(dollarFormat(cash));
     var cashChange = cashHolder.append("div.change");
+    var timeLabel = toolbar.append("div.time").text(timerFormat(duration));
     var tickerLabel = toolbar.append("div.ticker").text(stock.name).style("display", "none");
     if(gameConfig.replay) tickerLabel.style("display", "");
 

@@ -53,92 +53,151 @@
       </div>
     </div>
     <div class="screen levels"></div>
-    <!-- GAME OVER CARD ULTRA MODERNA + TIP -->
-    <!-- Sostituisci i valori con quelli reali dal tuo JS -->
-    <!-- (Mostra questo DIV solo a fine gioco) -->
     
-<div class="game-over-card">
-  <!-- Titolo e stato finale -->
-  <h2 class="go-title">Game Over</h2>
-  <div class="go-status positive">Profitto</div>
-  
-  <!-- Elenco metriche di performance -->
-  <div class="go-metrics">
-    <div class="go-metric">
-      <span class="go-label">Profitto totale:</span>
-      <span class="go-value positive">+€5.000</span>
-    </div>
-    <div class="go-metric">
-      <span class="go-label">Miglior trade:</span>
-      <span class="go-value positive">+€1.200</span>
-    </div>
-    <div class="go-metric">
-      <span class="go-label">Peggior trade:</span>
-      <span class="go-value negative">-€300</span>
-    </div>
-    <div class="go-metric">
-      <span class="go-label">Operazioni totali:</span>
-      <span class="go-value">45</span>
-    </div>
-    <div class="go-metric">
-      <span class="go-label">Accuratezza:</span>
-      <span class="go-value">78%</span>
-    </div>
-  </div>
-  
-  <!-- Pulsante di azione -->
-  <button class="go-btn">Gioca ancora</button>
-  
-  <!-- Tip/Messaggio motivazionale finale -->
-  <div class="go-tip">💡 Ogni partita è un’opportunità per imparare!</div>
-</div>
-
-
-
-
-      <button class="go-btn" onclick="window.location.reload()">
-        <i class="ri-restart-line"></i>
-        Gioca Ancora
-      </button>
-      <div class="go-tip" id="goTip">
-        <i class="ri-lightbulb-flash-line"></i>
-        <span>Tip: Non inseguire il mercato, segui il tuo piano!</span>
+    <!-- Pannello informativo di trading -->
+    <div class="trading-info-panel">
+      <div class="info-row">
+        <div class="info-item">
+          <span class="info-label">Capitale</span>
+          <span class="info-value" id="capitalValue">€500</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Posizione</span>
+          <span class="info-value" id="positionValue">Nessuna</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">P&L</span>
+          <span class="info-value" id="plValue">€0</span>
+        </div>
       </div>
+    </div>
+    
+    <!-- GAME OVER CARD -->
+    <div class="game-over-card">
+      <!-- Titolo e stato finale -->
+      <h2 class="go-title">Game Over</h2>
+      <div class="go-status positive">Profitto</div>
+      
+      <!-- Elenco metriche di performance -->
+      <div class="go-metrics">
+        <div class="go-metric">
+          <span class="go-label">Profitto totale:</span>
+          <span class="go-value positive">+€5.000</span>
+        </div>
+        <div class="go-metric">
+          <span class="go-label">Miglior trade:</span>
+          <span class="go-value positive">+€1.200</span>
+        </div>
+        <div class="go-metric">
+          <span class="go-label">Peggior trade:</span>
+          <span class="go-value negative">-€300</span>
+        </div>
+        <div class="go-metric">
+          <span class="go-label">Operazioni totali:</span>
+          <span class="go-value">45</span>
+        </div>
+        <div class="go-metric">
+          <span class="go-label">Accuratezza:</span>
+          <span class="go-value">78%</span>
+        </div>
+      </div>
+      
+      <!-- Pulsante di azione -->
+      <button class="go-btn" onclick="window.location.reload()">Gioca ancora</button>
+      
+      <!-- Tip/Messaggio motivazionale finale -->
+      <div class="go-tip">💡 Ogni partita è un'opportunità per imparare!</div>
     </div>
   </div>
   <script src="main.js"></script>
   <script>
-    // ESEMPIO: mostra game over card dinamicamente (puoi chiamare questa funzione dal tuo main.js a fine partita)
+    // Mostra game over card dinamicamente (puoi chiamare questa funzione dal tuo main.js a fine partita)
     function showGameOverCard(data) {
       // data = { profit: ..., best: ..., worst: ..., ops: ..., acc: ... }
-      document.getElementById('goValue').innerHTML = (data.profit >= 0 ? '+' : '') + data.profit + '&nbsp;€';
-      document.getElementById('goValue').className = 'go-value ' + (data.profit >= 0 ? 'profit' : 'loss');
-      document.getElementById('goRemark').innerText = data.profit >= 0 ? 'Profitto Finale' : 'Perdita Finale';
-      document.getElementById('bestTrade').innerHTML = (data.best >= 0 ? '+' : '') + data.best + '&nbsp;€';
-      document.getElementById('bestTrade').className = 'go-pos' + (data.best >= 0 ? '' : ' go-neg');
-      document.getElementById('worstTrade').innerHTML = (data.worst >= 0 ? '+' : '') + data.worst + '&nbsp;€';
-      document.getElementById('worstTrade').className = 'go-neg' + (data.worst >= 0 ? ' go-pos' : '');
-      document.getElementById('totalOps').innerText = data.ops;
-      document.getElementById('accuracy').innerText = data.acc + '%';
+      const gameOverCard = document.querySelector('.game-over-card');
+      const goStatus = gameOverCard.querySelector('.go-status');
+      const metrics = gameOverCard.querySelectorAll('.go-metric .go-value');
+      
+      // Aggiorna lo stato (profitto/perdita)
+      goStatus.textContent = data.profit >= 0 ? 'Profitto' : 'Perdita';
+      goStatus.className = 'go-status ' + (data.profit >= 0 ? 'positive' : 'negative');
+      
+      // Aggiorna le metriche
+      metrics[0].textContent = (data.profit >= 0 ? '+' : '') + '€' + Math.abs(data.profit);
+      metrics[0].className = 'go-value ' + (data.profit >= 0 ? 'positive' : 'negative');
+      
+      metrics[1].textContent = (data.best >= 0 ? '+' : '') + '€' + Math.abs(data.best);
+      metrics[1].className = 'go-value ' + (data.best >= 0 ? 'positive' : 'negative');
+      
+      metrics[2].textContent = (data.worst >= 0 ? '+' : '') + '€' + Math.abs(data.worst);
+      metrics[2].className = 'go-value ' + (data.worst >= 0 ? 'positive' : 'negative');
+      
+      metrics[3].textContent = data.ops;
+      metrics[4].textContent = data.acc + '%';
+      
       // Tip random
       var tips = [
         'Non inseguire il mercato, segui il tuo piano!',
         'Analizza sempre le tue operazioni, anche quelle negative!',
         'Ricorda: gestire il rischio è più importante del profitto.',
-        'Sii paziente: la disciplina batte l’impulso.',
+        'Sii paziente: la disciplina batte l\'impulso.',
         'Il successo arriva nel lungo periodo, non in una sola sessione.',
         'Non farti influenzare dalle emozioni, ma dai dati!',
         'Meglio pochi trade buoni che tanti impulsivi.',
         'Anche i migliori fanno errori: impara da ogni sessione.',
         'Ogni stop loss è una lezione preziosa!'
       ];
-      document.getElementById('goTip').querySelector('span').innerText = 'Tip: ' + tips[Math.floor(Math.random()*tips.length)];
-      document.getElementById('gameOverCard').style.display = '';
+      
+      gameOverCard.querySelector('.go-tip').textContent = '💡 ' + tips[Math.floor(Math.random()*tips.length)];
+      
+      // Mostra la card
+      gameOverCard.style.display = 'block';
     }
-  
 
     // Per vedere un esempio, puoi chiamare questa funzione da console:
     // showGameOverCard({profit:1200, best:290, worst:-180, ops:14, acc:71});
+
+    /**
+     * Mostra una notifica "toast" per svelare lo stock.
+     * @param {object} data - Dati della notifica.
+     * @param {string} data.stockName - Il nome reale dello stock (es. "Apple Inc.").
+     * @param {number} data.performance - Il P&L per questo stock.
+     */
+    function showStockRevealToast(data) {
+      const container = document.getElementById('toast-container');
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+
+      const isPositive = data.performance >= 0;
+      const iconClass = isPositive ? 'ri-arrow-up-circle-fill positive' : 'ri-arrow-down-circle-fill negative';
+      const sign = isPositive ? '+' : '';
+
+      toast.innerHTML = `
+        <i class="toast-icon ${iconClass}"></i>
+        <div class="toast-content">
+          <span class="stock-name">${data.stockName}</span>
+          <span class="performance">Performance: <strong>${sign}€${data.performance.toFixed(2)}</strong></span>
+        </div>
+      `;
+
+      container.appendChild(toast);
+
+      // Mostra il toast con animazione
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      // Rimuovi il toast dopo 5 secondi
+      setTimeout(() => {
+        toast.classList.remove('show');
+        // Attendi la fine dell'animazione di uscita prima di rimuovere l'elemento
+        toast.addEventListener('transitionend', () => toast.remove());
+      }, 5000);
+    }
   </script>
+
+  <!-- Contenitore per le notifiche "Toast" -->
+  <div id="toast-container"></div>
 </body>
 </html>
