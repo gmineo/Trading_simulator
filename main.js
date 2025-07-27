@@ -14,13 +14,13 @@ let currentStep = 0;
 var tickers = [
   { "ticker": "aapl", "name": "APPLE" },
   { "ticker": "dell", "name": "DELL COMPUTER" },
-
+  { "ticker": "ge", "name": "GENERAL ELECTRIC" },
 ];
 tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 30000,
+  'duration': 3000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -151,6 +151,12 @@ function init() {
   d3.select(".opener")
   .select(".play-btn")
   .on("click", function() {
+    // Azzera il capitale a 500 all'inizio di ogni partita
+    cash = 500;
+    if(typeof(Storage) !== "undefined") {
+      localStorage.setItem("cash", cash);
+    }
+
     // PATCH: nascondi la barra branding
     d3.select(".top-header-bar").classed("hide", true);
     currentStep = 1;
@@ -1677,7 +1683,7 @@ function showFinalSummaryCard(data) {
       </div>
     </div>
     <div class="stock-modal-footer">
-      <button id="restart-game-btn" class="modal-continue-btn"><i class="ri-mail-line"></i> Contattaci</button>
+      <button id="restart-game-btn" class="modal-continue-btn"><i class="ri-mail-line"></i> Continue</button>
     </div>
   `;
 

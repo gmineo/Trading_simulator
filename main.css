@@ -1302,6 +1302,58 @@ g.histogram.trades text {
 }
 /* FINE BLOCCO DA AGGIUNGERE */
 
+/* === STILI PAGINA CONTATTI === */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-color: var(--tv-bg-main);
+  color: var(--tv-txt-main);
+  font-family: var(--tv-font);
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-title {
+  font-size: 2.5em;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 10px 0;
+}
+
+.contact-subtitle {
+  font-size: 1.1em;
+  color: var(--tv-txt-sec);
+  margin: 0;
+}
+
+.form-wrapper {
+  background-color: var(--tv-bg-light);
+  border: 1px solid var(--tv-border);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-footer {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.contact-footer .modal-continue-btn {
+  width: 100%;
+}
+/* === FINE STILI PAGINA CONTATTI === */
+
 .stock-modal-footer {
   padding: 0 24px 24px 24px;
   text-align: center;
@@ -1318,7 +1370,7 @@ g.histogram.trades text {
   font-family: var(--tv-font);
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(41, 98, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(41, 255, 77, 0.3);
 }
 
 .modal-continue-btn:hover {

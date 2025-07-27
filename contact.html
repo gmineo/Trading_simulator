@@ -1,44 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <!-- ...altri tag... -->
-  <style>
-    body {
-      background-color: #bdcff3;
-    }
-  </style>
-
-
-<script src="https://js-eu1.hsforms.net/forms/embed/146103524.js" defer></script>
-<div class="hs-form-frame" data-region="eu1" data-form-id="e53fa778-26e8-4924-a788-bd2957cdbefb" data-portal-id="146103524"></div>
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-
-
-<script>
-// Aggiungi il pulsante "Ricarica" in basso centrato
-d3.select('body')
-  .append('div')
-  .attr('id', 'bottom-reload-container')
-  .style('position', 'fixed')
-  .style('left', '0')
-  .style('right', '0')
-  .style('bottom', '80px') // leggermente sopra l'altro pulsante se presente
-  .style('width', '100%')
-  .style('display', 'flex')
-  .style('justify-content', 'center')
-  .style('z-index', '9999')
-  .append('button')
-  .attr('id', 'bottom-reload-btn')
-  .style('background', '#ffb85b')
-  .style('color', '#00334d')
-  .style('font-size', '1.2em')
-  .style('padding', '12px 32px')
-  .style('border-radius', '8px')
-  .style('border', 'none')
-  .style('cursor', 'pointer')
-  .text('Gioca ancora')
-  .on('click', () => {
-    window.location.href = 'index.html';
-  });
-</script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contattaci - Trading Game</title>
+  
+  <!-- Stili condivisi con il gioco -->
+  <link rel="stylesheet" href="main.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <!-- Script del form HubSpot (come da tua richiesta) -->
+  <script src="https://js-eu1.hsforms.net/forms/embed/146103524.js" defer></script>
 </head>
+<body>
+  <div class="contact-container">
+    <div class="contact-header">
+      <h1 class="contact-title">Contattaci</h1>
+      <p class="contact-subtitle">Compila il modulo per richiedere informazioni.</p>
+    </div>
+
+    <!-- Contenitore per il form di HubSpot -->
+    <div class="form-wrapper">
+      <!-- Codice del form HubSpot (come da tua richiesta) -->
+      <div class="hs-form-frame" data-region="eu1" data-form-id="e53fa778-26e8-4924-a788-bd2957cdbefb" data-portal-id="146103524"></div>
+    </div>
+
+    <!-- Pulsante per tornare al gioco -->
+    <div class="contact-footer">
+      <button class="modal-continue-btn" onclick="window.location.href='index.html'">
+        <i class="ri-arrow-left-line"></i> Torna al Gioco
+      </button>
+    </div>
+  </div>
+</body>
+</html>
