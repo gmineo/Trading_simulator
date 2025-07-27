@@ -20,7 +20,7 @@ tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 3000,
+  'duration': 30000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -1029,77 +1029,42 @@ function levelOver() {
 }
 
 /*  ─────  GAME‑OVER  ─────
-    Mostra riepilogo rendimenti + pulsante “Gioca ancora”
+    SOSTITUISCI QUESTA FUNZIONE CON LA NUOVA VERSIONE
 */
 function gameOver() {
   // Mostra la top-header-bar se era nascosta
   d3.select('.top-header-bar').classed('hide', false);
 
-  // Rimuove eventuali card precedenti
-  d3.selectAll('.game-over-card').remove();
-
-  // Crea la card game over centrata
-  const overlay = d3.select('.levels')
-    .append('div')
-    .attr('class', 'game-over-card')
-    .style('z-index', d3.selectAll('.levels > div').size());
-
-  // Titolo riepilogo piccolo e blu
-  overlay.append('div')
-    .attr('class', 'go-summary-title')
-    .text('Riepilogo rendimenti (%)');
-
-  // Lista scrollabile dei rendimenti per ogni titolo
-  const listWrapper = overlay.append('div')
-    .attr('class', 'go-summary-list');
-
-  const fmt = d3.format('.1%');
-  titoliRend.forEach((r, i) => {
-    listWrapper.append('div')
-      .attr('class', 'go-summary-row')
-      .html(
-        `<span class="go-summary-label">${playedStockNames[i]}</span>
-         <span class="go-summary-value">${fmt(r)}</span>`
-      );
-  });
-
-  // Medie in fondo
+  // Calcola le statistiche finali
   const mediaTitoli = d3.mean(titoliRend);
   const mediaSp500  = d3.mean(sp500Rend);
 
-  listWrapper.append('div')
-    .attr('class', 'go-summary-row go-summary-row-total')
-    .html(`<span class="go-summary-label">Media tuo rendimento titoli</span>
-           <span class="go-summary-value">${fmt(mediaTitoli)}</span>`);
+  // Prepara i dati per la nuova card
+  const summaryData = {
+    titoli: playedStockNames.map((name, i) => ({
+      name: name,
+      rendimento: titoliRend[i]
+    })),
+    mediaTitoli: mediaTitoli,
+    mediaSp500: mediaSp500
+  };
 
-  listWrapper.append('div')
-    .attr('class', 'go-summary-row go-summary-row-total')
-    .html(`<span class="go-summary-label">Media rendimento S&amp;P500</span>
-           <span class="go-summary-value">${fmt(mediaSp500)}</span>`);
-
-  // Pulsante ancorato in basso sempre visibile
-  overlay.append('button')
-    .attr('class', 'go-btn')
-    .text('Gioca ancora')
-    .on('click', () => {
-      cash = 500;
-      localStorage.removeItem("cash");
-      window.location.href = 'contact.html';
-    });
-
-  // Tip motivazionale in basso
-  overlay.append('div')
-    .attr('class', 'go-tip')
-    .html('💡 Ogni partita è un’opportunità per imparare!');
+  // Mostra la nuova card di riepilogo finale
+  showFinalSummaryCard(summaryData);
 
   // Debug
   if (gameConfig.logging) {
     console.table(analysisStats);
     console.table(cashRules);
   }
-
-  showGameOverForm();
 }
+
+// RIMUOVI LA VECCHIA FUNZIONE showGameOverForm() SE ESISTE
+/*
+function showGameOverForm() {
+  // ...tutto il vecchio codice...
+}
+*/
 
 
 ////////////////////
@@ -1655,4 +1620,79 @@ function closeStockRevealCard() {
   
   if (overlay) overlay.remove();
   if (modal) modal.remove();
+}
+
+/**
+ * Mostra la card di riepilogo finale del gioco.
+ * @param {object} data - Dati riassuntivi della partita.
+ */
+function showFinalSummaryCard(data) {
+  // Rimuovi eventuali modal esistenti
+  const existingOverlay = document.getElementById('finalSummaryOverlay');
+  const existingModal = document.getElementById('finalSummaryModal');
+  if (existingOverlay) existingOverlay.remove();
+  if (existingModal) existingModal.remove();
+
+  // Funzioni helper
+  const formatPercent = (value) => `${value >= 0 ? '+' : ''}${(value * 100).toFixed(1)}%`;
+  const getColorClass = (value) => (value > 0 ? 'positive' : value < 0 ? 'negative' : 'neutral');
+
+  // Crea l'elenco HTML dei rendimenti dei singoli titoli
+  const rendimentiHtml = data.titoli.map(t => `
+    <div class="perf-row">
+      <span class="perf-label">${t.name}</span>
+      <span class="perf-value ${getColorClass(t.rendimento)}">${formatPercent(t.rendimento)}</span>
+    </div>
+  `).join('');
+
+  // Crea overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'finalSummaryOverlay';
+  overlay.className = 'stock-reveal-overlay'; // Riusiamo lo stesso stile di overlay
+
+  // Crea modal
+  const modal = document.createElement('div');
+  modal.id = 'finalSummaryModal';
+  modal.className = 'stock-reveal-modal'; // Riusiamo lo stesso stile di modal
+
+  // Contenuto del modal
+  modal.innerHTML = `
+    <div class="stock-modal-header">
+      <h2 class="stock-modal-title">Game Over</h2>
+      <p class="stock-modal-period">Riepilogo Finale</p>
+    </div>
+    <div class="stock-modal-body">
+      <div class="performance-section">
+        ${rendimentiHtml}
+      </div>
+      <div class="summary-totals">
+        <div class="perf-row total">
+          <span class="perf-label">Media Tuo Rendimento:</span>
+          <span class="perf-value ${getColorClass(data.mediaTitoli)}">${formatPercent(data.mediaTitoli)}</span>
+        </div>
+        <div class="perf-row total">
+          <span class="perf-label">Media Rendimento S&P 500:</span>
+          <span class="perf-value ${getColorClass(data.mediaSp500)}">${formatPercent(data.mediaSp500)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="stock-modal-footer">
+      <button id="restart-game-btn" class="modal-continue-btn"><i class="ri-mail-line"></i> Contattaci</button>
+    </div>
+  `;
+
+  // Aggiungi al DOM
+  document.body.appendChild(overlay);
+  document.body.appendChild(modal);
+
+  // Aggiungi listener al pulsante per andare alla pagina contatti
+  document.getElementById('restart-game-btn').addEventListener('click', () => {
+    window.location.href = 'contact.html';
+  });
+
+  // Mostra con animazione
+  requestAnimationFrame(() => {
+    overlay.classList.add('visible');
+    modal.classList.add('visible');
+  });
 }

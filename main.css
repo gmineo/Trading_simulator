@@ -1281,11 +1281,26 @@ g.histogram.trades text {
 }
 
 .sp500-item-value {
-  display: block;
-  color: var(--tv-txt-main);
-  font-weight: 600;
+  font-weight: 700;
   font-family: 'Roboto Mono', monospace;
 }
+
+/* AGGIUNGI QUESTO BLOCCO */
+.summary-totals {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--tv-border);
+}
+
+.perf-row.total .perf-label {
+  font-weight: 700;
+  color: var(--tv-txt-main);
+}
+
+.perf-row.total .perf-value {
+  font-size: 1.4em;
+}
+/* FINE BLOCCO DA AGGIUNGERE */
 
 .stock-modal-footer {
   padding: 0 24px 24px 24px;
