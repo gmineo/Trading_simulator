@@ -20,7 +20,7 @@ tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 3000,
+  'duration': 30000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
