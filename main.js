@@ -15,12 +15,16 @@ var tickers = [
   { "ticker": "aapl", "name": "APPLE" },
   { "ticker": "dell", "name": "DELL COMPUTER" },
   { "ticker": "ge", "name": "GENERAL ELECTRIC" },
+  { "ticker": "cat", "name": "CATERPILLAR" },
+
+
+
 ];
 tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 30000,
+  'duration': 3000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -101,9 +105,7 @@ var analysisStats = [];
 var cashRules = [];
 
 var tips = [
-  "Premi e tieni premuto in qualsiasi punto sul grafico per comprare.",
-  "Mantieni premuto per mantenere la posizione del titolo e rilascia per vendere.",
-  "Il trascinamento non ha alcun effetto. L'unico controllo è quello del tempo."
+  "Tap and hold anywhere on the chart to buy.", "Hold to keep the position, release to sell."
 ];
 
 var taglines = [
@@ -1561,23 +1563,23 @@ function showStockRevealCard(data, onContinue) {
     <div class="stock-modal-body">
       <div class="performance-section">
         <div class="perf-row strategy">
-          <span class="perf-label">La tua strategia:</span>
+          <span class="perf-label">Your Trading::</span>
           <span class="perf-value ${getColorClass(data.strategyReturn)}">${formatPercent(data.strategyReturn)}</span>
         </div>
         <div class="perf-row buyhold">
-          <span class="perf-label">Buy & Hold su questo stock:</span>
+          <span class="perf-label">Buy & Hold (this stock):</span>
           <span class="perf-value ${getColorClass(data.buyHoldReturn)}">${formatPercent(data.buyHoldReturn)}</span>
         </div>
         <div class="perf-row sp500">
-          <span class="perf-label">Buy & Hold su S&P 500:</span>
+          <span class="perf-label">Buy & Hold S&P 500:</span>
           <span class="perf-value ${getColorClass(data.sp500Return)}">${formatPercent(data.sp500Return)}</span>
         </div>
       </div>
       <div class="sp500-section">
-        <div class="sp500-header"><i class="ri-line-chart-line"></i> Dettagli S&P 500</div>
+        <div class="sp500-header"><i class="ri-line-chart-line"></i> Details S&P 500</div>
         <div class="sp500-data">
           <div class="sp500-item">
-            <span class="sp500-item-label">Valore iniziale:</span>
+            <span class="sp500-item-label">Ending Value:</span>
             <span class="sp500-item-value">${data.sp500Start.toFixed(2)}</span>
           </div>
           <div class="sp500-item">
@@ -1665,7 +1667,7 @@ function showFinalSummaryCard(data) {
   modal.innerHTML = `
     <div class="stock-modal-header">
       <h2 class="stock-modal-title">Game Over</h2>
-      <p class="stock-modal-period">Riepilogo Finale</p>
+      <p class="stock-modal-period">Final Summarye</p>
     </div>
     <div class="stock-modal-body">
       <div class="performance-section">
@@ -1673,11 +1675,11 @@ function showFinalSummaryCard(data) {
       </div>
       <div class="summary-totals">
         <div class="perf-row total">
-          <span class="perf-label">Media Tuo Rendimento:</span>
+          <span class="perf-label">Your Average Return:</span>
           <span class="perf-value ${getColorClass(data.mediaTitoli)}">${formatPercent(data.mediaTitoli)}</span>
         </div>
         <div class="perf-row total">
-          <span class="perf-label">Media Rendimento S&P 500:</span>
+          <span class="perf-label">&P 500 Average Return:</span>
           <span class="perf-value ${getColorClass(data.mediaSp500)}">${formatPercent(data.mediaSp500)}</span>
         </div>
       </div>
