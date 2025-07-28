@@ -24,7 +24,7 @@ tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
 
 var gameConfig = {
-  'duration': 3000,
+  'duration': 30000,
   'presentation': false,
   'ghost': false,
   'ticker': false,
@@ -1009,24 +1009,35 @@ function levelOver() {
     }
 
     function addAlert(string, stick, tweet) {
-      var alert = alerts.append("div.alert")
-        .html(string);
+      // Seleziona il contenitore globale degli alert
+      const alertsContainer = d3.select(".alerts");
 
-      if(!stick) {
-        alert.transition()
-          .delay(4000)
-          .duration(500)
-          .remove();
+      // Crea il nuovo alert con un'icona e applica l'animazione di entrata
+      const alert = alertsContainer.append("div")
+        .attr("class", "alert alert-enter") // Aggiunge la classe per l'animazione
+        .html(`<i class="ri-information-line"></i><span>${string}</span>`);
+
+      if (!stick) {
+        // Imposta un timer per avviare l'animazione di uscita
+        setTimeout(() => {
+          // Sostituisci la classe di entrata con quella di uscita
+          alert.classed('alert-enter', false).classed('alert-exit', true);
+          
+          // Rimuovi l'elemento dal DOM dopo che l'animazione di uscita è terminata
+          setTimeout(() => {
+            alert.remove();
+          }, 500); // La durata deve corrispondere a quella dell'animazione CSS
+        }, 4000); // Tempo in cui il messaggio rimane visibile
       }
 
-      if(tweet) {
+      if (tweet) {
         alert.classed("tweetable", true)
           .on("click", function() { postToTwitter(stock.challengeUrl, tweet); });
       }
 
       alert.select("input").on("click", function() {
         this.setSelectionRange(0, this.value.length);
-      })
+      });
     }
 
     function showTip() {
@@ -1579,11 +1590,11 @@ function showStockRevealCard(data, onContinue) {
         <div class="sp500-header"><i class="ri-line-chart-line"></i> Details S&P 500</div>
         <div class="sp500-data">
           <div class="sp500-item">
-            <span class="sp500-item-label">Ending Value:</span>
+            <span class="sp500-item-label">Starting Value:</span>
             <span class="sp500-item-value">${data.sp500Start.toFixed(2)}</span>
           </div>
           <div class="sp500-item">
-            <span class="sp500-item-label">Valore finale:</span>
+            <span class="sp500-item-label">Ending Value:</span>
             <span class="sp500-item-value">${data.sp500End.toFixed(2)}</span>
           </div>
         </div>
@@ -1667,7 +1678,7 @@ function showFinalSummaryCard(data) {
   modal.innerHTML = `
     <div class="stock-modal-header">
       <h2 class="stock-modal-title">Game Over</h2>
-      <p class="stock-modal-period">Final Summarye</p>
+      <p class="stock-modal-period">Final Summary</p>
     </div>
     <div class="stock-modal-body">
       <div class="performance-section">
@@ -1679,7 +1690,7 @@ function showFinalSummaryCard(data) {
           <span class="perf-value ${getColorClass(data.mediaTitoli)}">${formatPercent(data.mediaTitoli)}</span>
         </div>
         <div class="perf-row total">
-          <span class="perf-label">&P 500 Average Return:</span>
+          <span class="perf-label">S&P 500 Average Return:</span>
           <span class="perf-value ${getColorClass(data.mediaSp500)}">${formatPercent(data.mediaSp500)}</span>
         </div>
       </div>

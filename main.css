@@ -441,6 +441,78 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
+/* === STILI MIGLIORATI PER I TIPS (ALERTS) === */
+
+/* Contenitore principale degli alert, posizionato in alto al centro */
+.alerts {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000; /* Assicura che sia sopra tutto */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 90%;
+  max-width: 500px;
+  pointer-events: none; /* Permette di cliccare "attraverso" il contenitore */
+}
+
+/* Stile del singolo messaggio/tip */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--tv-bg-light);
+  color: var(--tv-txt-main);
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--tv-border);
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  pointer-events: all; /* Rende il singolo alert cliccabile */
+  width: fit-content;
+}
+
+.alert i {
+  font-size: 1.2em;
+  color: var(--tv-accent);
+}
+
+/* Animazioni di entrata e uscita */
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.alert-enter {
+  animation: slideDownFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.alert-exit {
+  animation: fadeOutUp 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+/* === FINE STILI TIPS === */
+
 .levels > div div.toolbar {
     position: absolute;
     top: 0;

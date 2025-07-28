@@ -11,7 +11,7 @@
  
   <link rel="stylesheet" type="text/css" href="main.css">
   <!-- Icone TradingView -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <!-- d3.js e plugin -->
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="queue.v1.min.js"></script>
@@ -21,6 +21,7 @@
   <script src="lodash.underscore.min.js"></script>
 </head>
 <body>
+  <div class="alerts"></div>
   <!-- TOP BAR BRANDING -->
   <div class="top-header-bar">
     <i class="ri-bar-chart-grouped-line"></i>
@@ -28,25 +29,27 @@
   </div>
   <div class="game-container">
     <div class="screen opener">
-      <div class="center-middle">
-        <h1 class="app-title">Trading Simulator</h1>
-        <div class="intro-card">
-          <button class="play-btn">
-            <i class="ri-play-circle-line"></i> Play
-          </button>
-          <div class="instructions modern-instructions">
-            <h2>
-              <span class="main-desc">
-                Start a trading simulation with <strong>10 mystery stocks</strong> and track your performance.<br>
-                After each session, the real name of every stock is revealed.
-              </span>
-              <span class="subtitle">How to Play</span>
-            </h2>
-            <ul>
-              <li>Tap or click the screen <strong>Buy</strong> the stock</li>
-              <li>Press and hold <strong>Hold</strong> the position</li>
-              <li>Release <strong>Sell</strong> the stock</li>
-            </ul>
+      <div class="opener-content">
+        <div class="center-middle">
+          <h1 class="app-title">Trading Simulator</h1>
+          <div class="intro-card">
+            <button class="play-btn">
+              <i class="ri-play-circle-line"></i> Play
+            </button>
+            <div class="instructions modern-instructions">
+              <h2>
+                <span class="main-desc">
+                  Start a trading simulation with <strong>10 mystery stocks</strong> and track your performance.<br>
+                  After each session, the real name of every stock is revealed.
+                </span>
+                <span class="subtitle">How to Play</span>
+              </h2>
+              <ul>
+                <li>Tap or click the screen <strong>Buy</strong> the stock</li>
+                <li>Press and hold <strong>Hold</strong> the position</li>
+                <li>Release <strong>Sell</strong> the stock</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
