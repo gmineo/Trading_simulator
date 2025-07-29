@@ -1506,3 +1506,68 @@ g.histogram.trades text {
     padding: 0 12px 16px 12px;
   }
 }
+
+/* === STILI MIGLIORATI PER LE ISTRUZIONI INIZIALI === */
+.modern-instructions {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.03); /* Sfondo leggermente diverso per profondità */
+  border: 1px solid var(--tv-border);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.modern-instructions h2 {
+  margin: 0 0 20px 0;
+  padding: 0;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--tv-txt-sec);
+}
+
+.modern-instructions .main-desc {
+  display: block;
+  margin-bottom: 20px;
+  text-align: justify; /* << Aggiungi o modifica questa riga */
+}
+
+.modern-instructions .subtitle {
+  display: block;
+  font-weight: 700;
+  color: var(--tv-txt-main);
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--tv-border);
+}
+
+.modern-instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spazio tra le istruzioni */
+}
+
+.modern-instructions li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95em;
+  color: var(--tv-txt-sec);
+}
+
+.modern-instructions li strong {
+  background-color: var(--tv-accent);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  min-width: 50px;
+  text-align: center;
+}
+/* === FINE STILI ISTRUZIONI === */

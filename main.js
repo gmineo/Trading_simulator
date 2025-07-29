@@ -16,6 +16,7 @@ var tickers = [
   { "ticker": "dell", "name": "DELL COMPUTER" },
   { "ticker": "ge", "name": "GENERAL ELECTRIC" },
   { "ticker": "cat", "name": "CATERPILLAR" },
+  { "ticker": "coke", "name": "CCOA-COLA" },
 
 
 
