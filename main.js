@@ -12,14 +12,18 @@ let currentStep = 0;
 
 // PATCH: totalSteps dinamico, dopo lo shuffle dei tickers!
 var tickers = [
-  { "ticker": "aapl", "name": "APPLE" },
-  { "ticker": "dell", "name": "DELL COMPUTER" },
-  { "ticker": "ge", "name": "GENERAL ELECTRIC" },
-  { "ticker": "cat", "name": "CATERPILLAR" },
-  { "ticker": "coke", "name": "CCOA-COLA" },
-
-
-
+ //  { "ticker": "aapl", "name": "APPLE" },
+  // { "ticker": "dell", "name": "DELL COMPUTER" },
+  // { "ticker": "ge", "name": "GENERAL ELECTRIC" },
+ //  { "ticker": "cat", "name": "CATERPILLAR" },
+ //  { "ticker": "coke", "name": "COCA-COLA" },
+   // { "ticker": "nflx", "name": "NETFLIX" },
+   // { "ticker": "znga", "name": "ZINGA" },
+   // 
+   // { "ticker": "ene", "name": "ENRON" },
+  // { "ticker": "brkb", "name": "Berkshire Hathaway" },
+  //{{ "ticker": "nvda", "name": "NVIDIA" },
+  { "ticker": "btc", "name": "BITCOIN" },
 ];
 tickers = _.shuffle(tickers);
 const totalSteps = tickers.length;
