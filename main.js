@@ -22,11 +22,11 @@ var tickers = [
    // 
    // { "ticker": "ene", "name": "ENRON" },
   // { "ticker": "brkb", "name": "Berkshire Hathaway" },
-  //{{ "ticker": "nvda", "name": "NVIDIA" },
-  { "ticker": "btc", "name": "BITCOIN" },
+  { "ticker": "nvda", "name": "NVIDIA" },
+  //{ "ticker": "btc", "name": "BITCOIN" },
 ];
 tickers = _.shuffle(tickers);
-const totalSteps = tickers.length;
+const totalSteps = tickers.length;//
 
 var gameConfig = {
   'duration': 30000,
